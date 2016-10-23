@@ -1,0 +1,31 @@
+library(lubridate)
+library(tidyr)
+
+setwd("./nectar analysis/raw data")
+
+bals15 <- read.csv("2015 Balsamroot Nectar Data v1 original.csv", header = T, as.is = T)
+
+#get rid of wind, temp, humidity, shade/sun, time, and notes
+bals15 <- bals15[,-c(2,3,4,5,6,20)]
+
+bals15$date <- mdy(bals15$date)
+
+plots <- as.data.frame(strsplit(bals15$plot, split = " "))
+plots <- t(plots)
+plots <- as.data.frame(plots)
+colnames(plots) <- c("name", "number")
+plots$no <- gsub("\\(", "", plots$number)
+plots$number <- gsub("\\)", "", plots$no)
+plots <- plots[,-3]
+plots$treat <- gsub("^C", "", plots$name)
+plots$treat <- gsub("W", "", plots$treat)
+plots$treat <- gsub("E", "", plots$treat)
+plots$treat <- gsub("HSR", "H", plots$treat)
+plots$treat <- gsub("SR", "C", plots$treat)
+plots$treatment <- gsub("C", "0", plots$treat)
+plots$treatment <- gsub("H", "1", plots$treatment)
+
+bals15$plotno <- as.factor(plots$number)
+bals15$plotname <- as.factor(plots$name)
+bals15$treatment <- as.factor(plots$treatment)
+bals15 <- bals15[,c(1,2,16,15,3,4,5,6,7,8,9,10,11,12,13,14)]
