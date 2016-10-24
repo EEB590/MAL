@@ -40,42 +40,6 @@ head(sugar.balsam)
 
 # Models
 
-vol.balsam.mod <- lme(log.vol ~ Heat, random = ~1 | Plant, data = volume.balsam)
-vol.balsam.mod
-summary(vol.balsam.mod)
-plot(vol.balsam.mod, main = "Balsamroot Volume, 2015-2016")
-
-conc.balsam.mod <- lme(BRIX ~ Heat, random = ~1 | Plant, data = sugar.balsam)
-conc.balsam.mod
-summary(conc.balsam.mod)
-plot(conc.balsam.mod, main = "Balsamroot Concentration, 2015-2016")
-
-mass.balsam.mod <- lme(log.mass ~ Heat, random = ~1 | Plant, data = sugar.balsam)
-mass.balsam.mod
-summary(mass.balsam.mod)
-plot(mass.balsam.mod, main = "Balsamroot Sugar Mass, 2015-2016")
-
-#######################
-###  2016 only data ###
-#######################
-
-volume.balsam2016 <- as.data.frame(volume.balsam[volume.balsam$Year.Factor == "2",])
-sugar.balsam2016 <- as.data.frame((sugar.balsam[sugar.balsam$Year.Factor == "2",]))
-
-vol.2016.mod <- lme(log.vol ~ Heat, random = ~1 | Plant, data = volume.balsam2016)
-vol.2016.mod
-summary(vol.2016.mod)
-plot(vol.2016.mod, main = "Balsamroot Volume (log transformed), 2016 only")
-
-conc.2016.mod <- lme(BRIX ~ Heat, random = ~1 | Plant, data = sugar.balsam2016)
-conc.2016.mod
-summary(conc.2016.mod)
-plot(conc.2016.mod, main = "Balsamroot Concentration, 2016 only")
-
-mass.2016.mod <- lme(log.mass ~ Heat, random = ~1 | Plant, data = sugar.balsam2016)
-mass.2016.mod
-summary(mass.2016.mod)
-plot(mass.2016.mod, main = "Balsamroot Mass (log transformed), 2016 only")
 
 #######################
 ###  2015 only data ###
