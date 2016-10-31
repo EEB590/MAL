@@ -33,6 +33,7 @@ bals15 <- bals15[,c(1,2,16,15,3,4,5,6,7,8,9,10,11,12,13,14)]
 
 # calculate volume
 vols <- as.data.frame(bals15[,c("cm.of.tube.filled", "cm.of.second.tube.filled", "cm.of.third.tube", "cm.of.fourth.tube", "length.tube..mm.")])
-vols$totalvol <- (rowSums(vols[1:4], na.rm = T))*10
+vols$totalvol <- ((rowSums(vols[1:4], na.rm = T))*10)/vols$length.tube..mm.
 
-bals15$Plant <- as.factor(bals15$Plant)
+bals15$volume <- vols$totalvol
+bals15 <- bals15[,-c(7:10)]
