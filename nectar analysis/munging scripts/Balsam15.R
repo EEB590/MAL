@@ -3,7 +3,7 @@ library(tidyr)
 
 setwd("./nectar analysis/raw data")
 
-bals15 <- read.csv("2015 Balsamroot Nectar Data v1 original w tube length.csv", header = T, as.is = T)
+bals15 <- read.csv("2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
 
 #get rid of wind, temp, humidity, shade/sun, time, and notes
 bals15 <- bals15[,-c(2,3,4,5,6,20)]
@@ -37,3 +37,10 @@ vols$totalvol <- ((rowSums(vols[1:4], na.rm = T))*10)/vols$length.tube..mm.
 
 bals15$volume <- vols$totalvol
 bals15 <- bals15[,-c(7:10)]
+
+# calculate BRIX
+
+
+#calculate sugar mass
+
+
