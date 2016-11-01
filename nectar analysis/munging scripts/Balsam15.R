@@ -39,7 +39,9 @@ bals15$volume <- vols$totalvol
 bals15 <- bals15[,-c(7:10)]
 
 # calculate BRIX
-
+bals15$X..sucrose <- as.numeric(bals15$X..sucrose)
+bals15$BRIX <- rowMeans(bals15[,9:12], na.rm = T)
+bals15 <- bals15[,-c(9:12)]
 
 #calculate sugar mass
 
