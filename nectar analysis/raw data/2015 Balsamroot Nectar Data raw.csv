@@ -118,7 +118,7 @@ date,avg wind (mph),temp (?F),Humidity (%),Shade/ Sun,time (am),plot,treatment,P
 6/12/2015,0,51,,shade,7:50,WHSR (9),heating & snow removal,1,0.4,,,,1,55,32,,,,
 6/12/2015,0,51,,shade,7:53,WHSR (9),heating & snow removal,1,0,,,,1,55,NA,,,,
 6/12/2015,0,50.8,,shade,7:54,WHSR (9),heating & snow removal,2,0,,,,1,55,NA,,,,
-6/12/2015,0,50.8,,shade,7:55,WHSR (9),heating & snow removal,,,,,,,55,,,,,
+6/12/2015,0,50.8,,shade,7:55,WHSR (9),heating & snow removal,2,0,,,,1,55,0,,,,
 6/12/2015,0,51.3,,shade,7:56,WHSR (9),heating & snow removal,3,0,,,,1,55,NA,,,,
 6/12/2015,0,51.3,,shade,7:58,WHSR (9),heating & snow removal,3,0,,,,1,55,NA,,,,
 6/12/2015,0,51.4,,shade,8:00,WHSR (9),heating & snow removal,3,0.3,,,,1,55,NA,,,,
