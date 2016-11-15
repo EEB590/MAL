@@ -1,9 +1,7 @@
 library(lubridate)
 library(tidyr)
 
-setwd("./nectar analysis/raw data")
-
-bals15 <- read.csv("2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
+bals15 <- read.csv("nectar analysis/raw data/2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
 
 #get rid of wind, temp, humidity, shade/sun, time, and notes
 bals15 <- bals15[,-c(2,3,4,5,6,20)]
@@ -44,5 +42,13 @@ bals15$BRIX <- rowMeans(bals15[,9:12], na.rm = T)
 bals15 <- bals15[,-c(9:12)]
 
 #calculate sugar mass
+ref <- read.csv("nectar analysis/analysis/concentration reference.csv", header = T)
+ref<- ref[,c(1,8)]
+colnames(ref) <- c("BRIX", "mass")
+bals15$BRIX <- gsub("NaN", "0", bals15$BRIX)
+bals15$BRIX <- as.numeric(bals15$BRIX)
+balsam15 <- merge(bals15, ref, by = "BRIX")
+balsam15 <- balsam15[,c(2,3,4,5,6,7,8,9,10,1,11)]
 
 
+#balsam15 <- order(balsam15$date)
