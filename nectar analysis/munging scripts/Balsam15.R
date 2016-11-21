@@ -54,8 +54,8 @@ balsam15 <- balsam15[order(balsam15$date),]
 
 #subset for volume, get rid of 0's
 balsvol15 <- subset(balsam15, volume != 0, select = c(date, plot, treatment, plant, volume))
-write.csv(balsvol15, file = "nectar analysis/data files/balsvol15.csv")
+write.csv(balsvol15, file = "nectar analysis/data files/balsvol15.csv", row.names = FALSE)
 
 #subset for sugar, get rid of 0's
 balssugar15 <- subset(balsam15, BRIX != 0, select = c(date, plot, treatment, plant, BRIX, mass))
-write.csv(balssugar15, file = "nectar analysis/data files/balssugar15.csv")
+write.csv(balssugar15, file = "nectar analysis/data files/balssugar15.csv", row.names = FALSE)
