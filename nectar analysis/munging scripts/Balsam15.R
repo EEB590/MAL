@@ -8,24 +8,22 @@ bals15 <- subset(bals15, select = -c(avg.wind..mph., temp...F., Humidity...., Sh
 
 bals15$date <- mdy(bals15$date)
 
-# Get the plots properly labelled
-plots <- as.data.frame(strsplit(bals15$plot, split = " "))
-plots <- t(plots)
-plots <- as.data.frame(plots)
-colnames(plots) <- c("name", "number")
-plots$no <- gsub("\\(", "", plots$number)
-plots$number <- gsub("\\)", "", plots$no)
-plots$plot <- paste(plots$name, plots$number, sep = "")
-plots <- subset(plots, select = -c(no))
-plots$treat <- gsub("^C", "", plots$name)
-plots$treat <- gsub("W", "", plots$treat)
-plots$treat <- gsub("E", "", plots$treat)
-plots$treat <- gsub("HSR", "H", plots$treat)
-plots$treat <- gsub("SR", "C", plots$treat)
+# Get the plots properly labelled and formatted
+bals15 <- separate(bals15, plot, c("plotname", "plotno"), " ")
+bals15$plotno <- gsub("\\(", "", bals15$plotno)
+bals15$plotno <- gsub("\\)", "", bals15$plotno)
 
-bals15$plot <- as.factor(plots$plot)
-bals15$treatment <- as.factor(plots$treat)
-bals15$plant <- paste(bals15$plot,bals15$Plant..,sep = "-")
+bals15$treatment <- gsub("^C", "", bals15$plotname)
+bals15$treatment <- gsub("W", "", bals15$treatment)
+bals15$treatment <- gsub("E", "", bals15$treatment)
+bals15$treatment <- gsub("HSR", "H", bals15$treatment)
+bals15$treatment <- gsub("SR", "C", bals15$treatment)
+
+bals15 <- unite(bals15, plot, plotname, plotno, sep = "")
+
+bals15$plot <- as.factor(bals15$plot)
+bals15$treatment <- as.factor(bals15$treatment)
+bals15$plant <- as.factor(paste(bals15$plot,bals15$Plant..,sep = "-"))
 bals15 <- subset(bals15, select = -Plant..)
 
 
