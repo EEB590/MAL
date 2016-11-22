@@ -23,7 +23,7 @@ bals16$plot <- as.factor(bals16$plot)
 bals16$treatment <- as.factor(bals16$treatment)
 
 # calculate volume
-bals16$volume <- (bals16$mm.of.tube.filled/55)/bals16$size.tube..µL.
+bals16$volume <- (bals16$mm.of.tube.filled/55)*bals16$size.tube..µL.
 #all tubes used were 55mm in length (see scanned data sheets)
 bals16 <- subset(bals16, select = -c(mm.of.tube.filled, size.tube..µL.))
 
