@@ -28,8 +28,14 @@ bals15 <- subset(bals15, select = -Plant..)
 
 
 # calculate volume
-vols <- as.data.frame(bals15[,c("cm.of.tube.filled", "cm.of.second.tube.filled", "cm.of.third.tube", "cm.of.fourth.tube", "length.tube..mm.")])
-vols$totalvol <- ((rowSums(vols[1:4], na.rm = T))*10)/vols$length.tube..mm.
+vols <- as.data.frame(bals15[,c("cm.of.tube.filled", "cm.of.second.tube.filled", "cm.of.third.tube", "cm.of.fourth.tube", "size.tube..µL.", "length.tube..mm.")])
+
+vols$vol1 <- ((vols$cm.of.tube.filled*10)/vols$length.tube..mm.)*vols$size.tube..µL.
+vols$vol2 <- ((vols$cm.of.second.tube.filled*10)/vols$length.tube..mm.)*vols$size.tube..µL.
+vols$vol3 <- ((vols$cm.of.third.tube*10)/vols$length.tube..mm.)*vols$size.tube..µL.
+vols$vol4 <- ((vols$cm.of.fourth.tube*10)/vols$length.tube..mm.)*vols$size.tube..µL.
+
+vols$totalvol <- ((rowSums(vols[7:10], na.rm = T)))
 
 bals15$volume <- vols$totalvol
 bals15 <- subset(bals15, select = -c(cm.of.tube.filled, cm.of.second.tube.filled, cm.of.third.tube, cm.of.fourth.tube, size.tube..µL., length.tube..mm.))
