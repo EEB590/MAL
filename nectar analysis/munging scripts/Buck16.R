@@ -52,6 +52,7 @@ buck16 <- subset(buck16, select = -Quadrant.of.plot)
 # calculate volume
 
 #discrepincy in data sheets about the length of the tube used.  Beginning sheets read 55mm, but corrected to 33mm on 160623Buckwheatp5.jpeg.  Using 33mm as the length for all readings.  All tubes total volume = 0.5 microliters
+
 buck16$mm.of.tube.filled <- as.numeric(buck16$mm.of.tube.filled)
 buck16$mm.of.tube.filled[is.na(buck16$mm.of.tube.filled)] <- 0
 buck16$volume <- (buck16$mm.of.tube.filled/33)*0.5
@@ -62,18 +63,18 @@ ref <- read.csv("nectar analysis/analysis/concentration reference.csv", header =
 ref<- ref[,c(1,8)]  #Look-up table to convert BRIX to sugar concentration (mg/mL)
 colnames(ref) <- c("BRIX", "conc")
 
-bals16$BRIX <- as.numeric(bals16$BRIX)
-bals16$BRIX[is.na(bals16$BRIX)] <- 0
-balsam16 <- merge(bals16, ref, by = "BRIX")
+buck16$BRIX <- as.numeric(buck16$BRIX)
+buck16$BRIX[is.na(buck16$BRIX)] <- 0
+buckwt16 <- merge(buck16, ref, by = "BRIX")
 
-balsam16$mass <- balsam16$volume*balsam16$conc*0.001 #calculate raw mass from volume and concentration
-balsam16 <- balsam16[,c(2,3,4,5,6,1,8)]
-balsam16 <- balsam16[order(balsam16$date),]
+buckwt16$mass <- buckwt16$volume*buckwt16$conc*0.001 #calculate raw mass from volume and concentration
+buckwt16 <- buckwt16[,c(2,3,4,5,6,1,8)]
+buckwt16 <- buckwt16[order(buckwt16$date),]
 
 #subset for volume, get rid of 0's
-balsvol16 <- subset(balsam16, volume != 0, select = c(date, plot, treatment, plant, volume))
-write.csv(balsvol16, file = "nectar analysis/data files/balsvol16.csv", row.names = FALSE)
+buckvol16 <- subset(buckwt16, volume != 0, select = c(date, plot, treatment, quad, volume))
+write.csv(buckvol16, file = "nectar analysis/data files/buckvol16.csv", row.names = FALSE)
 
 #subset for sugar, get rid of 0's
-balssugar16 <- subset(balsam16, BRIX != 0, select = c(date, plot, treatment, plant, BRIX, mass))
-write.csv(balssugar16, file = "nectar analysis/data files/balssugar16.csv", row.names = FALSE)
+bucksugar16 <- subset(buckwt16, BRIX != 0, select = c(date, plot, treatment, quad, BRIX, mass))
+write.csv(bucksugar16, file = "nectar analysis/data files/bucksugar16.csv", row.names = FALSE)
