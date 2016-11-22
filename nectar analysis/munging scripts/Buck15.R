@@ -42,25 +42,25 @@ buck15$volume <- vols$totalvol
 buck15 <- subset(buck15, select = -c(cm.of.tube.filled, tube.2.cm, tube.3.cm, tube.4.cm, tube.5.cm, size.tube..µL.,size.tube..mm.))
 
 # calculate BRIX
-bals15$X..sucrose <- as.numeric(bals15$X..sucrose) #this coerces the >50 and <45 into NAs
-bals15$BRIX <- rowMeans(bals15[,c("X..sucrose","X..of.second.tube","X..of.third.tube","X..of.fourth.tube")], na.rm = T)
-bals15 <- subset(bals15, select = -c(X..sucrose,X..of.second.tube,X..of.third.tube,X..of.fourth.tube))
+buck15$X..sucrose..tube.1. <- as.numeric(buck15$X..sucrose..tube.1.) #this coerces the >50 and <45 into NAs
+buck15$BRIX <- rowMeans(buck15[,c("X..sucrose..tube.1.","tube.2..","tube.3..","tube.4..", "tube.5..")], na.rm = T)
+buck15 <- subset(buck15, select = -c(X..sucrose..tube.1.,tube.2..,tube.3..,tube.4.., tube.5..))
 
 #calculate sugar mass
 ref <- read.csv("nectar analysis/analysis/concentration reference.csv", header = T)
 ref<- ref[,c(1,8)]  #Look-up table to convert BRIX to sugar concentration (mg/mL)
 colnames(ref) <- c("BRIX", "conc")
-bals15$BRIX <- gsub("NaN", "0", bals15$BRIX)
-bals15$BRIX <- as.numeric(bals15$BRIX)
-balsam15 <- merge(bals15, ref, by = "BRIX")
-balsam15$mass <- balsam15$volume*balsam15$conc*0.001 #calculate raw mass from volume and concentration
-balsam15 <- balsam15[,c(2,3,4,5,6,1,8)]
-balsam15 <- balsam15[order(balsam15$date),]
+buck15$BRIX <- gsub("NaN", "0", buck15$BRIX)
+buck15$BRIX <- as.numeric(buck15$BRIX)
+buckwt15 <- merge(buck15, ref, by = "BRIX")
+buckwt15$mass <- buckwt15$volume*buckwt15$conc*0.001 #calculate raw mass from volume and concentration
+buckwt15 <- buckwt15[,c(2,3,4,5,6,1,8)]
+buckwt15 <- buckwt15[order(buckwt15$date),]
 
 #subset for volume, get rid of 0's
-balsvol15 <- subset(balsam15, volume != 0, select = c(date, plot, treatment, plant, volume))
-write.csv(balsvol15, file = "nectar analysis/data files/balsvol15.csv", row.names = FALSE)
+buckvol15 <- subset(buckwt15, volume != 0, select = c(date, plot, treatment, quad, volume))
+write.csv(buckvol15, file = "nectar analysis/data files/buckvol15.csv", row.names = FALSE)
 
 #subset for sugar, get rid of 0's
-balssugar15 <- subset(balsam15, BRIX != 0, select = c(date, plot, treatment, plant, BRIX, mass))
-write.csv(balssugar15, file = "nectar analysis/data files/balssugar15.csv", row.names = FALSE)
+bucksugar15 <- subset(buckwt15, BRIX != 0, select = c(date, plot, treatment, quad, BRIX, mass))
+write.csv(bucksugar15, file = "nectar analysis/data files/bucksugar15.csv", row.names = FALSE)
