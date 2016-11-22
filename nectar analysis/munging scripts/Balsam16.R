@@ -24,9 +24,9 @@ bals16$plot <- as.factor(bals16$plot)
 bals16$treatment <- as.factor(bals16$treatment)
 
 # calculate volume
-bals16$volume <- bals16$mm.of.tube.filled/55
+bals16$volume <- (bals16$mm.of.tube.filled/55)/bals16$size.tube..µL.
     #all tubes used were 55mm in length (see scanned data sheets)
-bals16 <- subset(bals16, select = -mm.of.tube.filled)
+bals16 <- subset(bals16, select = -c(mm.of.tube.filled, size.tube..µL.))
 
 #calculate sugar mass
 ref <- read.csv("nectar analysis/analysis/concentration reference.csv", header = T)
@@ -38,7 +38,7 @@ bals16$BRIX[is.na(bals16$BRIX)] <- 0
 balsam16 <- merge(bals16, ref, by = "BRIX")
 
 balsam16$mass <- balsam16$volume*balsam16$conc*0.001 #calculate raw mass from volume and concentration
-balsam16 <- balsam16[,c(2,3,4,6,7,1,9)]
+balsam16 <- balsam16[,c(2,3,4,5,6,1,8)]
 balsam16 <- balsam16[order(balsam16$date),]
 
 #subset for volume, get rid of 0's
