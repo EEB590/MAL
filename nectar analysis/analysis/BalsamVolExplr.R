@@ -1,7 +1,5 @@
 library(ggplot2)
 library(dplyr)
-library(mvnormtest)
-library(HH)
 
 balsvol15 <- read.csv("nectar analysis/data files/balsvol15.csv", header = T)
 balsvol16 <- read.csv("nectar analysis/data files/balsvol16.csv", header = T)
@@ -22,15 +20,15 @@ qplot(balsvol16$volume, binwidth = .01)
 qplot(balsvolboth$volume, binwidth = .025)
 
 ggplot(balsvol15, aes(x=treatment, y=volume)) + geom_boxplot() +
-  xlab("Treatment: 0 = Control, 1 = Heat") +
+  xlab("Treatment") +
   ylab("Nectar Volume (microliters)") + ggtitle("Balsamroot Volume 2015")
 
 ggplot(balsvol16, aes(x=treatment, y=volume)) + geom_boxplot() +
-  xlab("Treatment: 0 = Control, 1 = Heat") +
+  xlab("Treatment") +
   ylab("Nectar Volume (microliters)") + ggtitle("Balsamroot Volume 2016")
 
 ggplot(balsvolboth, aes(x=treatment, y=volume)) + geom_boxplot() +
-  xlab("Treatment: 0 = Control, 1 = Heat") +
+  xlab("Treatment") +
   ylab("Nectar Volume (microliters)") + ggtitle("Balsamroot Volume 2015 & 2016")
 
 # Homoscedastic?
