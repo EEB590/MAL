@@ -1,6 +1,8 @@
 library(ggplot2)
 library(dplyr)
 
+#setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL") only need this to knit
+
 balssug15 <- read.csv("nectar analysis/data files/balssugar15.csv", header = T)
 balssug16 <- read.csv("nectar analysis/data files/balssugar16.csv", header = T)
 balssugboth <- rbind(balssug15,balssug16)

@@ -6,6 +6,8 @@ library(lubridate)
 library(multcompView)
 library(car)
 
+#setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL") only need this to knit
+
 balsvol15 <- read.csv("nectar analysis/data files/balsvol15.csv", header = T)
 balsvol16 <- read.csv("nectar analysis/data files/balsvol16.csv", header = T)
 balsvolboth <- rbind(balsvol15,balsvol16)
