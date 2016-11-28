@@ -52,6 +52,7 @@ ref<- ref[,c(1,8)]  #Look-up table to convert BRIX to sugar concentration (mg/mL
 colnames(ref) <- c("BRIX", "conc")
 buck15$BRIX <- gsub("NaN", "0", buck15$BRIX)
 buck15$BRIX <- as.numeric(buck15$BRIX)
+buck15$BRIX <- round(buck15$BRIX)
 buckwt15 <- merge(buck15, ref, by = "BRIX")
 buckwt15$mass <- buckwt15$volume*buckwt15$conc*0.001 #calculate raw mass from volume and concentration
 buckwt15 <- buckwt15[,c(2,3,4,5,6,1,8)]
