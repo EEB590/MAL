@@ -51,6 +51,7 @@ ref<- ref[,c(1,8)]  #Look-up table to convert BRIX to sugar concentration (mg/mL
 colnames(ref) <- c("BRIX", "conc")
 bals15$BRIX <- gsub("NaN", "0", bals15$BRIX)
 bals15$BRIX <- as.numeric(bals15$BRIX)
+bals15$BRIX <- round(bals15$BRIX)
 balsam15 <- merge(bals15, ref, by = "BRIX")
 balsam15$mass <- balsam15$volume*balsam15$conc*0.001 #calculate raw mass from volume and concentration
 balsam15 <- balsam15[,c(2,3,4,5,6,1,8)]
@@ -63,3 +64,4 @@ write.csv(balsvol15, file = "nectar analysis/data files/balsvol15.csv", row.name
 #subset for sugar, get rid of 0's
 balssugar15 <- subset(balsam15, BRIX != 0, select = c(date, plot, treatment, plant, BRIX, mass))
 write.csv(balssugar15, file = "nectar analysis/data files/balssugar15.csv", row.names = FALSE)
+
