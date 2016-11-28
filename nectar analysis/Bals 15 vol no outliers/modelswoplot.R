@@ -8,7 +8,7 @@ library(car)
 
 setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 
-balsvol15 <- read.csv("nectar analysis/data files/balsvol15.csv", header = T)
+balsvol15 <- read.csv("nectar analysis/Bals 15 vol no outliers/balsvol15sub.csv", header = T)
 balsvol16 <- read.csv("nectar analysis/data files/balsvol16.csv", header = T)
 balsvolboth <- rbind(balsvol15,balsvol16)
 
@@ -20,7 +20,7 @@ cellN
 cellMean <- with(balsvolboth, tapply(volume, list(treatment, year), mean))
 cellMean
 
-modvol <- lmer(volume ~ treatment * year + (1|plot/plant), data = balsvolboth)
+modvol <- lmer(volume ~ treatment * year + (1|plant), data = balsvolboth)
 
 volume.grid <- ref.grid(modvol)
 summary(volume.grid)

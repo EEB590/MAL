@@ -20,7 +20,7 @@ cellN
 cellMean <- with(balssugboth, tapply(BRIX, list(treatment, year), mean))
 cellMean
 
-modBRIX <- lmer(BRIX ~ treatment * year + (1|plot/plant), data = balssugboth)
+modBRIX <- lmer(BRIX ~ treatment * year + (1|plant), data = balssugboth)
 
 BRIX.grid <- ref.grid(modBRIX)
 summary(BRIX.grid)
