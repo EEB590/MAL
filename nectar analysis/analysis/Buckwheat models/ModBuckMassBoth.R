@@ -6,7 +6,7 @@ library(lubridate)
 library(multcompView)
 library(car)
 
-# setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL") only need this to knit
+setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 
 bucksug15 <- read.csv("nectar analysis/data files/bucksugar15.csv", header = T)
 bucksug16 <- read.csv("nectar analysis/data files/bucksugar16.csv", header = T)
