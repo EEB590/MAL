@@ -1,13 +1,14 @@
 Read me file for Haldre
-December 16, 2016
+December 17, 2016
 
 A couple of notes:
 
 1.	The R markdown files are in the same folder as the R scripts they came from, 
-specifically “analysis,” “munging” and “figures”
-2.	I haven’t had time to write up a word document with analysis sections from 
+specifically â€œanalysis,â€ â€œmungingâ€ and â€œfiguresâ€
+2.	I havenâ€™t had time to write up a word document with analysis sections from 
 methods and results, with the figures.  Plan to do that tomorrow (Saturday.)
-3.	The “big questions” for the project are laid out in the draft intro to the manuscript, 
-which I’ve included in the “documents” folder (Nectar paper v1.docx).  That intro is 
+12/17 update: This is done.  There's both a doc file and a pdf.
+3.	The â€œbig questionsâ€ for the project are laid out in the draft intro to the manuscript, 
+which Iâ€™ve included in the â€œdocumentsâ€ folder (Nectar paper v1.docx).  That intro is 
 a work in progress, but should give you an idea of the context in which this study is 
 happening.
