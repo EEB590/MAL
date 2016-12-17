@@ -4,7 +4,7 @@ library(nlme)
 library(lubridate)
 library(influence.ME)
 
-#setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL") only need this to knit
+setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 
 buckvol15 <- read.csv("nectar analysis/data files/buckvol15.csv", header = T)
 buckvol16 <- read.csv("nectar analysis/data files/buckvol16.csv", header = T)
