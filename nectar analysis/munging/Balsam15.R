@@ -1,7 +1,7 @@
 library(lubridate)
 library(tidyr)
 
-bals15 <- read.csv("nectar analysis/raw data/2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
+bals15 <- read.csv("nectar analysis/data files/raw data/2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
 
 #get rid of wind, temp, humidity, shade/sun, time, and notes
 bals15 <- subset(bals15, select = -c(avg.wind..mph., temp...F., Humidity...., Shade..Sun, time..am., notes))
