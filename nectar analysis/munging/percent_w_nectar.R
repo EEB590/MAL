@@ -37,9 +37,9 @@ buckcontrol <- subset(buckwt, treatment == "C")
 pz.buc <- sum(buckcontrol$volume == "0")/nrow(buckcontrol)
 pnz.buc <- sum(buckcontrol$volume != "0")/nrow(buckcontrol)
 
-bucksheat <- subset(buckwt, treatment == "H")
-pz.buh <- sum(bucksheat$volume == "0")/nrow(bucksheat)
-pnz.buh <- sum(bucksheat$volume != "0")/nrow(bucksheat)
+buckheat <- subset(buckwt, treatment == "H")
+pz.buh <- sum(buckheat$volume == "0")/nrow(buckheat)
+pnz.buh <- sum(buckheat$volume != "0")/nrow(buckheat)
 
 
 
