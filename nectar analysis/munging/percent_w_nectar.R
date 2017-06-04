@@ -1,5 +1,7 @@
 library(lubridate)
 
+# Read and minor munging of dataframes
+
 balsam15 <- read.csv("nectar analysis/data files/balsam15.csv", header = T, as.is = T)
 balsam16 <- read.csv("nectar analysis/data files/balsam16.csv", header = T, as.is = T)
 buckwt15 <- read.csv("nectar analysis/data files/buckwt15.csv", header = T, as.is = T)
@@ -41,23 +43,30 @@ buckheat <- subset(buckwt, treatment == "H")
 pz.buh <- sum(buckheat$volume == "0")/nrow(buckheat)
 pnz.buh <- sum(buckheat$volume != "0")/nrow(buckheat)
 
-balscontrol <- balscontrol[,-c(6,7)]
-balsheat <- balsheat[,-c(6,7)]
-buckcontrol <- buckcontrol[,-c(6,7)]
-buckheat <- buckheat[,-c(6,7)]
+rm(balscontrol)
+rm(balsheat)
+rm(buckcontrol)
+rm(buckheat)
 
-balscontrol$volume[balscontrol$volume != "0"] <- "1"
-balscontrol$necpres<- as.factor(balscontrol$volume)
-balscontrol <- balscontrol[,-5]
+# Create dataframes for linear analysis
 
-balsheat$volume[balsheat$volume != "0"] <- "1"
-balsheat$necpres<- as.factor(balsheat$volume) 
-balsheat <- balsheat[,-5]
+balsam$necpres[balsam$volume != "0"] <- "1"
+balsam$necpres[balsam$volume == "0"] <- "0"
+balsam$necpres <- as.factor(balsam$necpres)
+balsam <- balsam[,-c(5:7)]
 
-buckcontrol$volume[buckcontrol$volume != "0"] <- "1"
-buckcontrol$necpres<- as.factor(buckcontrol$volume)
-buckcontrol <- buckcontrol[,-5]
+buckwt$necpres[buckwt$volume != "0"] <- "1"
+buckwt$necpres[buckwt$volume == "0"] <- "0"
+buckwt$necpres <- as.factor(buckwt$necpres)
+buckwt <- buckwt[,-c(5:7)]
 
-buckheat$volume[buckheat$volume != "0"] <- "1"
-buckheat$necpres<- as.factor(buckheat$volume) 
-buckheat <- buckheat[,-5]
+# Models
+
+modbals <- glm(necpres ~ treatment, data = balsam, family = binomial)
+modbuck <- glm(necpres ~ treatment, data = buckwt, family = binomial)
+
+
+
+
+
+
