@@ -1,7 +1,7 @@
 library(lubridate)
 library(tidyr)
 
-bals16 <- read.csv("nectar analysis/raw data/2016 Balsamroot Nectar Data raw data FINAL corrected.csv", header = T, as.is = T)
+bals16 <- read.csv("nectar analysis/data files/raw data/2016 Balsamroot Nectar Data raw data FINAL corrected.csv", header = T, as.is = T)
 
 #get rid of empty rows, plus wind, temp, humidity, shade/sun, time, and notes
 bals16 <- subset(bals16[!is.na(bals16$Plant..),])
@@ -39,6 +39,8 @@ balsam16 <- merge(bals16, ref, by = "BRIX")
 balsam16$mass <- balsam16$volume*balsam16$conc*0.001 #calculate raw mass from volume and concentration
 balsam16 <- balsam16[,c(2,3,4,5,6,1,8)]
 balsam16 <- balsam16[order(balsam16$date),]
+
+write.csv(balsam16, file = "nectar analysis/data files/balsam16.csv", row.names = FALSE)
 
 #subset for volume, get rid of 0's
 balsvol16 <- subset(balsam16, volume != 0, select = c(date, plot, treatment, plant, volume))

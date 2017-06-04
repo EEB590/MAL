@@ -57,6 +57,8 @@ balsam15$mass <- balsam15$volume*balsam15$conc*0.001 #calculate raw mass from vo
 balsam15 <- balsam15[,c(2,3,4,5,6,1,8)]
 balsam15 <- balsam15[order(balsam15$date),]
 
+write.csv(balsam15, file = "nectar analysis/data files/balsam15.csv", row.names = FALSE)
+
 #subset for volume, get rid of 0's
 balsvol15 <- subset(balsam15, volume != 0, select = c(date, plot, treatment, plant, volume))
 write.csv(balsvol15, file = "nectar analysis/data files/balsvol15.csv", row.names = FALSE)
