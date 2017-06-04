@@ -41,5 +41,23 @@ buckheat <- subset(buckwt, treatment == "H")
 pz.buh <- sum(buckheat$volume == "0")/nrow(buckheat)
 pnz.buh <- sum(buckheat$volume != "0")/nrow(buckheat)
 
+balscontrol <- balscontrol[,-c(6,7)]
+balsheat <- balsheat[,-c(6,7)]
+buckcontrol <- buckcontrol[,-c(6,7)]
+buckheat <- buckheat[,-c(6,7)]
 
+balscontrol$volume[balscontrol$volume != "0"] <- "1"
+balscontrol$necpres<- as.factor(balscontrol$volume)
+balscontrol <- balscontrol[,-5]
 
+balsheat$volume[balsheat$volume != "0"] <- "1"
+balsheat$necpres<- as.factor(balsheat$volume) 
+balsheat <- balsheat[,-5]
+
+buckcontrol$volume[buckcontrol$volume != "0"] <- "1"
+buckcontrol$necpres<- as.factor(buckcontrol$volume)
+buckcontrol <- buckcontrol[,-5]
+
+buckheat$volume[buckheat$volume != "0"] <- "1"
+buckheat$necpres<- as.factor(buckheat$volume) 
+buckheat <- buckheat[,-5]
