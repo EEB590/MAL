@@ -1,7 +1,7 @@
 library(lubridate)
 library(tidyr)
 
-buck15 <- read.csv("nectar analysis/raw data/2015 Buckwheat Nectar Data v1 original.csv", header = T, as.is = T)
+buck15 <- read.csv("nectar analysis/data files/raw data/2015 Buckwheat Nectar Data v1 original.csv", header = T, as.is = T)
 
 #get rid of wind, temp, humidity, shade/sun, time, volume, and notes
 buck15 <- subset(buck15, select = -c(avg.wind..km.h., temp...C., Humidity...., Shade..Sun, time..am., Volume..µL., notes))
@@ -57,6 +57,8 @@ buckwt15 <- merge(buck15, ref, by = "BRIX")
 buckwt15$mass <- buckwt15$volume*buckwt15$conc*0.001 #calculate raw mass from volume and concentration
 buckwt15 <- buckwt15[,c(2,3,4,5,6,1,8)]
 buckwt15 <- buckwt15[order(buckwt15$date),]
+
+write.csv(buckwt15, file = "nectar analysis/data files/buckwt15.csv", row.names = FALSE)
 
 #subset for volume, get rid of 0's
 buckvol15 <- subset(buckwt15, volume != 0, select = c(date, plot, treatment, quad, volume))
