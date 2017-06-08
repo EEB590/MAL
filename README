@@ -23,3 +23,4 @@ run model diagnostics
 back-transform effects from logit scale
 Think about: remove data points from end of season?
 
+Update model results spreadsheet
