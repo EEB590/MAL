@@ -1,0 +1,25 @@
+Notes from meeting with Adam June 8
+
+revise Balsamroot vol, brix and mass models to include date random effect
+BRIX ~ treatment * year +(1|plot/plant) + (1|year:date), data = balsboth
+redo ls means analysis for these new models
+redo model diagnostics for these models
+
+in exploration, plot date by BRIX
+plot(as.factor(balsam$date, balsam$BRIX) - shows high variablility among dates so need to add as random effect
+
+Be careful about interpretation : when flowers are producing nectar, this is what we see...
+
+revise Buckwheat models to incorporate quadrant random effect
+BRIX ~ treatment * year +(1|plot/quadrant) + (1|year:date), data = buckboth
+check to see if high variability among dates and if we need the year:date random effect
+redo ls means for these new models
+redo model diagnostics for these models
+
+For presence/absence
+data exploration
+do ls means analysis
+run model diagnostics
+back-transform effects from logit scale
+Think about: remove data points from end of season?
+
