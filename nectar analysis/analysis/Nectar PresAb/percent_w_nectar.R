@@ -19,11 +19,14 @@ balsam$date <- ymd(balsam$date)
 balsam$plot <- as.factor(balsam$plot)
 balsam$treatment <- as.factor(balsam$treatment)
 balsam$plant <- as.factor(balsam$plant)
+balsam$year <- as.factor(year((balsam$date)))
+                         
 
 buckwt$date <- ymd(buckwt$date)
 buckwt$plot <- as.factor(buckwt$plot)
 buckwt$treatment <- as.factor(buckwt$treatment)
 buckwt$quad <- as.factor(buckwt$quad)
+buckwt$year <- as.factor(year((buckwt$date)))
 
 # Calculate percentage of flowers that are/aren't producing nectar
 
@@ -62,11 +65,10 @@ buckwt <- buckwt[,-c(5:7)]
 
 # Models
 
-modbals <- glm(necpres ~ treatment, data = balsam, family = binomial)
-modbuck <- glm(necpres ~ treatment, data = buckwt, family = binomial)
+modbals <- glmer(necpres ~ treatment * year + (1|plot/plant) + (1| year:date), data = balsam, family = binomial)
+summary(modbals)
 
-
-
-
+modbuck <- glmer(necpres ~ treatment * year + (1|plot) + (1| year:date), data = buckwt, family = binomial)  #still need to add quadrant random effect +(1|plot/quad)
+summary(modbuck)
 
 
