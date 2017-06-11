@@ -24,3 +24,20 @@ back-transform effects from logit scale
 Think about: remove data points from end of season?
 
 Update model results spreadsheet
+
+June 10
+Updated buckwheat munging files to include quad as a separate variable.
+Plotted BRIX, mass and volume against quadrant, but almost no variability among quadrants for all 3 variables
+Added plots to data exploration files
+Ran models with and without quadrant nested random effect, and difference is negligable (see comment in sugar code)
+Decided not to include nested quadrant effect in model
+
+Plotted BRIX, mass and volume against date, added plots to data exploration file
+June 30 2015 is a major outlier for both volume (high) and BRIX (low) - maybe too wet that day? check field notes
+Question: remove 6/30/15 from dataset?
+Variablility in volume and sugar mass is much lower in 2016 than 2015
+ran models both with and without +(1|year:date), and negligible difference in estimates and p-value for both mass and BRIX
+p-value for volume went down from 0.0485 without year:date effect to 0.0063 with year:date effect
+  estimates are only negligibly different
+decided not to include year:date effect in model
+
