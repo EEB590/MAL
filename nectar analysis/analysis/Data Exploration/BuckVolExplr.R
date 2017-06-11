@@ -57,6 +57,6 @@ qqnorm(buckvol16$volume)
 qqnorm(buckvolboth$volume)
 
 #Checking spread of key variables
-with(buckvolboth, plot(quad, vol))
-with(buckvolboth, plot(date, vol))
+with(buckvolboth, plot(quad, volume))
+with(buckvolboth, plot(date, volume))
 
