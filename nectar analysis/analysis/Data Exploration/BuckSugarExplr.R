@@ -96,3 +96,9 @@ qqnorm(bucksug15$mass)
 qqnorm(bucksug16$mass)
 qqnorm(bucksugboth$mass)
 
+
+#Checking spread of key variables
+with(bucksugboth, plot(quad, BRIX))
+with(bucksugboth, plot(quad, mass))
+with(bucksugboth, plot(date, BRIX))
+with(bucksugboth, plot(date, mass))
