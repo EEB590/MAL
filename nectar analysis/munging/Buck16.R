@@ -46,7 +46,11 @@ buck16$plot <- paste(buck16$plotna, buck16$plot, sep = "")
 buck16$plot <- as.factor(buck16$plot)
 buck16 <- subset(buck16, select = -plotna)
 
-buck16$quad <- paste(buck16$plot, buck16$Quadrant.of.plot, sep = "")
+# Commenting these out because I think we want quad separate so we can include as nested random effect, but check with Adam
+#buck16$quad <- paste(buck16$plot, buck16$Quadrant.of.plot, sep = "")
+#buck16 <- subset(buck16, select = -Quadrant.of.plot)
+
+buck16$quad <- as.factor(buck16$Quadrant.of.plot)
 buck16 <- subset(buck16, select = -Quadrant.of.plot)
 
 # calculate volume
@@ -68,15 +72,15 @@ buck16$BRIX[is.na(buck16$BRIX)] <- 0
 buckwt16 <- merge(buck16, ref, by = "BRIX")
 
 buckwt16$mass <- buckwt16$volume*buckwt16$conc*0.001 #calculate raw mass from volume and concentration
-buckwt16 <- buckwt16[,c(2,3,4,5,6,1,8)]
+buckwt16 <- buckwt16[,c(2,3,5,4,6,1,8)]
 buckwt16 <- buckwt16[order(buckwt16$date),]
 
 write.csv(buckwt16, file = "nectar analysis/data files/buckwt16.csv", row.names = FALSE)
 
 #subset for volume, get rid of 0's
-buckvol16 <- subset(buckwt16, volume != 0, select = c(date, plot, treatment, quad, volume))
+buckvol16 <- subset(buckwt16, volume != 0, select = c(date, plot, quad, treatment, volume))
 write.csv(buckvol16, file = "nectar analysis/data files/buckvol16.csv", row.names = FALSE)
 
 #subset for sugar, get rid of 0's
-bucksugar16 <- subset(buckwt16, BRIX != 0, select = c(date, plot, treatment, quad, BRIX, mass))
+bucksugar16 <- subset(buckwt16, BRIX != 0, select = c(date, plot, quad, treatment, BRIX, mass))
 write.csv(bucksugar16, file = "nectar analysis/data files/bucksugar16.csv", row.names = FALSE)
