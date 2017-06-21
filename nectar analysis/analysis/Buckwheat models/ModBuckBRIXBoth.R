@@ -20,9 +20,11 @@ cellN
 cellMean <- with(bucksugboth, tapply(BRIX, list(treatment, year), mean))
 cellMean
 
-modBRIX <- lmer(BRIX ~ treatment * year + (1|plot), data = bucksugboth)  
 # modBRIX.plot <- lmer(BRIX ~ treatment * year + (1|plot/quad), data = bucksugboth)
 # ran this model on Adam's suggestion, but there's almost no difference between this and the original model (without quad random effect). Estimates are within 0.01 and 0.05 for C and H, respectively, and p-value goes from 0.0192 (no quad) to 0.0231 with quadrant random effect.  Exploratory plots also show very little variability among quadrants.
+
+modBRIX <- lmer(BRIX ~ treatment * year + (1|plot) + (1|year:date), data = bucksugboth)  
+summary(modBRIX)
 
 BRIX.grid <- ref.grid(modBRIX)
 summary(BRIX.grid)
