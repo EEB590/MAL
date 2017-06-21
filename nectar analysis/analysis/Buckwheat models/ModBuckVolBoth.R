@@ -20,7 +20,8 @@ cellN
 cellMean <- with(buckvolboth, tapply(volume, list(treatment, year), mean))
 cellMean
 
-modvol <- lmer(volume ~ treatment * year + (1|plot), data = buckvolboth)
+modvol <- lmer(volume ~ treatment * year + (1|plot) +(1|year:date), data = buckvolboth)
+summary(modvol)
 
 volume.grid <- ref.grid(modvol)
 summary(volume.grid)
