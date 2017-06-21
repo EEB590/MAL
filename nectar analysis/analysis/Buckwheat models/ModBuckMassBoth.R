@@ -20,7 +20,8 @@ cellN
 cellMean <- with(bucksugboth, tapply(mass, list(treatment, year), mean))
 cellMean
 
-modmass <- lmer(mass ~ treatment * year + (1|plot), data = bucksugboth)
+modmass <- lmer(mass ~ treatment * year + (1|plot) + (1|year:date), data = bucksugboth)
+summary(modmass)
 
 mass.grid <- ref.grid(modmass)
 summary(mass.grid)
