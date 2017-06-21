@@ -51,7 +51,7 @@ rm(balsheat)
 rm(buckcontrol)
 rm(buckheat)
 
-# Create dataframes for linear analysis
+# Create dataframes for regression analysis
 
 balsam$necpres[balsam$volume != "0"] <- "1"
 balsam$necpres[balsam$volume == "0"] <- "0"
@@ -64,11 +64,70 @@ buckwt$necpres <- as.factor(buckwt$necpres)
 buckwt <- buckwt[,-c(5:7)]
 
 # Models
-
+  #balsamroot
 modbals <- glmer(necpres ~ treatment * year + (1|plot/plant) + (1| year:date), data = balsam, family = binomial)
 summary(modbals)
 
+cellN <- with(balsam, table(treatment, year))
+cellN
+
+necpres.grid <- ref.grid(modbals)
+summary(necpres.grid)
+
+lsmeans(necpres.grid, "treatment")
+lsmeans(necpres.grid, "year")
+
+necpres.treat <- lsmeans(necpres.grid, "treatment")
+pairs(necpres.treat)
+pairs.treat <- pairs(necpres.treat)
+test(pairs.treat, joint = T)
+
+necpres.year <- lsmeans(necpres.grid, "year")
+pairs(necpres.year)
+pairs.year <- pairs(necpres.year)
+test(pairs.year, joint = T)
+
+int.necpres <- pairs(necpres.grid, by = "year")
+int.necpres
+int.necprestable <- update(int.necpres, by = NULL)
+int.necprestable
+
+test(pairs(int.necprestable), joint = T)
+
+Anova(modbals, type = 3)
+
+
+  #buckwheat
+
 modbuck <- glmer(necpres ~ treatment * year + (1|plot) + (1| year:date), data = buckwt, family = binomial)  #still need to add quadrant random effect +(1|plot/quad)
 summary(modbuck)
+
+cellN <- with(buckwt, table(treatment, year))
+cellN
+
+necpres.grid <- ref.grid(modbuck)
+summary(necpres.grid)
+
+lsmeans(necpres.grid, "treatment")
+lsmeans(necpres.grid, "year")
+
+necpres.treat <- lsmeans(necpres.grid, "treatment")
+pairs(necpres.treat)
+pairs.treat <- pairs(necpres.treat)
+test(pairs.treat, joint = T)
+
+necpres.year <- lsmeans(necpres.grid, "year")
+pairs(necpres.year)
+pairs.year <- pairs(necpres.year)
+test(pairs.year, joint = T)
+
+int.necpres <- pairs(necpres.grid, by = "year")
+int.necpres
+int.necprestable <- update(int.necpres, by = NULL)
+int.necprestable
+
+test(pairs(int.necprestable), joint = T)
+
+Anova(modbals, type = 3)
 
 
