@@ -56,3 +56,7 @@ qqnorm(balsvol15$volume)
 qqnorm(balsvol16$volume)
 qqnorm(balsvolboth$volume)
 
+# Plots of response by variable
+  # by date
+with(balsvolboth, plot(date, volume, main = "Volume by date", xlab = "Date", ylab = "Volume"))
+with(balsvolboth, plot(plot, volume, main = "Volume by plot", xlab = "Plot", ylab = "volume"))
