@@ -96,3 +96,11 @@ qqnorm(balssug15$mass)
 qqnorm(balssug16$mass)
 qqnorm(balssugboth$mass)
 
+# Plots of response by variable
+  # by date
+with(balssugboth, plot(date, BRIX, main = "BRIX by date", xlab = "date", ylab = "BRIX"))
+with(balssugboth, plot(date, mass, main = "Sugar mass by date", xlab = "date", ylab = "mass"))
+
+  # by plot number
+with(balssugboth, plot(plot, BRIX, main = "BRIX by plot", xlab = "plot", ylab = "BRIX"))
+with(balssugboth, plot(plot, mass, main = "Sugar mass by plot", xlab = "plot", ylab = "mass"))
