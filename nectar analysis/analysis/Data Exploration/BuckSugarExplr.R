@@ -98,7 +98,7 @@ qqnorm(bucksugboth$mass)
 
 
 #Checking spread of key variables
-with(bucksugboth, plot(quad, BRIX))
-with(bucksugboth, plot(quad, mass))
-with(bucksugboth, plot(date, BRIX))
-with(bucksugboth, plot(date, mass))
+with(bucksugboth, plot(quad, BRIX,  main = "BRIX by quadrant", xlab = "quadrant", ylab = "BRIX"))
+with(bucksugboth, plot(quad, mass,  main = "Sugar mass by quadrant", xlab = "quadrant", ylab = "mass"))
+with(bucksugboth, plot(date, BRIX,  main = "BRIX by date", xlab = "date", ylab = "BRIX"))
+with(bucksugboth, plot(date, mass,  main = "Sugar mass by date", xlab = "date", ylab = "mass"))
