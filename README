@@ -41,3 +41,18 @@ p-value for volume went down from 0.0485 without year:date effect to 0.0063 with
   estimates are only negligibly different
 decided not to include year:date effect in model
 
+June 21
+Updated balsamroot analysis (for all 3 response variables): modified model to include year:date random effect
+Updated model analysis (including ls means) and model diagnostics to reflect new model
+Update data exploration files to plot response variables by date and treatment plot
+
+Re-looked at new date exploration plots from June 10 for buckwheat - shows fair amount of variation by date for all 3 response variable
+Decided to update buckwhat models to also include year:date random effect
+Updated model analysis (including ls means) and model diagnostics to reflext new model
+
+Ran analysis on presence/absence of nectar for both balsamroot and buckwheat (using same models as 3 response variables)
+Plotted presence/ansence versus date and treatment plot for both species
+Ran model diagnostics for models - CHECK RESIDUALS PLOT (ESP FOR BUCKWHEAT) WITH ADAM
+
+need to update model results summary spreadsheet
+need to re-run pdfs with new files
