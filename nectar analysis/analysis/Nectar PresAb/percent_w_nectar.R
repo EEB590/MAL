@@ -1,4 +1,7 @@
 library(lubridate)
+library(lme4)
+library(nlme)
+library(lsmeans)
 
 # Read and minor munging of dataframes
 
@@ -98,8 +101,7 @@ Anova(modbals, type = 3)
 
 
   #buckwheat
-
-modbuck <- glmer(necpres ~ treatment * year + (1|plot) + (1| year:date), data = buckwt, family = binomial)  #still need to add quadrant random effect +(1|plot/quad)
+modbuck <- glmer(necpres ~ treatment * year + (1|plot) + (1| year:date), data = buckwt, family = binomial)
 summary(modbuck)
 
 cellN <- with(buckwt, table(treatment, year))
