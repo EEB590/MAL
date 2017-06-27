@@ -11,7 +11,10 @@ setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 balssug15 <- read.csv("nectar analysis/data files/balssugar15.csv", header = T)
 balssug16 <- read.csv("nectar analysis/data files/balssugar16.csv", header = T)
 balssugboth <- rbind(balssug15,balssug16)
+rm(balssug15)
+rm(balssug16)
 
+balssugboth$lnmass <- log(balssugboth$mass)
 balssugboth$year <- as.factor(year(balssugboth$date))
 
 cellN <- with(balssugboth, table(treatment, year))
@@ -20,30 +23,26 @@ cellN
 cellMean <- with(balssugboth, tapply(mass, list(treatment, year), mean))
 cellMean
 
-modmass <- lmer(mass ~ treatment * year + (1|plot/plant) + (1|year:date), data = balssugboth)
+modlnmass <- lmer(lnmass ~ treatment * year + (1|plot/plant) + (1|year:date), data = balssugboth)
+summary(modlnmass)
+plot(modlnmass)
+inflmass <- influence(modlnmass, obs = T)
+plot(inflmass, which = "cook", main = "Balsam mass")
 
-mass.grid <- ref.grid(modmass)
-summary(mass.grid)
+lnmass.grid <- ref.grid(modlnmass)
+summary(lnmass.grid)
 
-lsmeans(mass.grid, "treatment")
-lsmeans(mass.grid, "year")
-
-mass.treat <- lsmeans(mass.grid, "treatment")
+mass.treat <- lsmeans(lnmass.grid, "treatment")
 pairs(mass.treat)
-pairs.treat <- pairs(mass.treat)
-test(pairs.treat, joint = T)
 
-mass.year <- lsmeans(mass.grid, "year")
+mass.year <- lsmeans(lnmass.grid, "year")
 pairs(mass.year)
-pairs.year <- pairs(mass.year)
-test(pairs.year, joint = T)
 
-int.mass <- pairs(mass.grid, by = "year")
-int.mass
+int.mass <- pairs(lnmass.grid, by = "year")
 int.masstable <- update(int.mass, by = NULL)
 int.masstable
 
 test(pairs(int.masstable), joint = T)
 
-Anova(modmass, type = 3)
+Anova(modlnmass, type = 3)
 
