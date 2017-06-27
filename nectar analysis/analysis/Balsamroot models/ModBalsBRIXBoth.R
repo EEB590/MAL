@@ -11,6 +11,8 @@ setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 balssug15 <- read.csv("nectar analysis/data files/balssugar15.csv", header = T)
 balssug16 <- read.csv("nectar analysis/data files/balssugar16.csv", header = T)
 balssugboth <- rbind(balssug15,balssug16)
+rm(balssug15)
+rm(balssug16)
 
 balssugboth$year <- as.factor(year(balssugboth$date))
 
@@ -22,6 +24,9 @@ cellMean
 
 modBRIX <- lmer(BRIX ~ treatment * year +(1|plot/plant) + (1|year:date), data = balssugboth)
 summary(modBRIX)
+plot(modBRIX, main = "Balsam BRIX")
+inflBRIX <- influence(modBRIX, obs = T)
+plot(inflBRIX, which = "cook", main = "Balsam BRIX")
 
 BRIX.grid <- ref.grid(modBRIX)
 summary(BRIX.grid)
@@ -31,16 +36,11 @@ lsmeans(BRIX.grid, "year")
 
 BRIX.treat <- lsmeans(BRIX.grid, "treatment")
 pairs(BRIX.treat)
-pairs.treat <- pairs(BRIX.treat)
-test(pairs.treat, joint = T)
 
 BRIX.year <- lsmeans(BRIX.grid, "year")
 pairs(BRIX.year)
-pairs.year <- pairs(BRIX.year)
-test(pairs.year, joint = T)
 
 int.BRIX <- pairs(BRIX.grid, by = "year")
-int.BRIX
 int.BRIXtable <- update(int.BRIX, by = NULL)
 int.BRIXtable
 
