@@ -57,3 +57,39 @@ Ran model diagnostics for models - CHECK RESIDUALS PLOT (ESP FOR BUCKWHEAT) WITH
 need to update model results summary spreadsheet
 need to re-run pdfs with new files
 need to update graphs?
+
+Notes from meeting with Adam June 22
+
+For volume and sugar mass
+
+Trumpet residuals are a problem.  Try log transform, then maybe square or cube root to randomize residuals.
+	See BalsamModsDiag file: line 20 plot of residuals
+Don't need quadrant random effect (i.e., no (1|plot/quad)) in buckwheat models
+
+For nectar presence/absence
+
+2015 Buckwheat is a problem: it's hard to analyze binary data when it's all 1's or all 0's. 2015 buckwheat is almost all 1's
+Cut 2015 buckwheat from analysis 
+
+Diagnostics: Don't worry about residuals.  Adam says because all the variables are categorical the model will fit
+(he used the following call, and it didn't tell him anything useful: plot(fitted(modbals), abs(residuals(modbals, type="deviance"))), or try without the absolute value (abs)
+	This uses deviance residuals
+
+For number of flowers
+
+Can't use buckwheat data - don't have absolute numbers
+For balsamroot data - need to get a number for each plant (i.e., one number that captures the total number of flowers that plant produced)
+Can work through data - # of buds to flowers vs aborted buds, stalks - to get a number for each plant, or, grab a time slice
+To do: plot # of fully flowering over time.  If all at the same time, then maybe take a time slice
+
+Notes June 26
+
+Updated balsamroot models to log transform volume and sugar mass.  Residuals look much better now.
+Balsamroot BRIX model was fine, no changes.
+Updated buckwheat models to log transform volume and sugar mass.  Residuals look much better now.
+Buckwheat BRIX model has odd residuals - might be okay but check with Adam on this one.
+
+Added ln(volume) and ln(mass) to balsamroot and buckwheat data diagnostics
+
+deleted old pdfs of model and data explore runs
+need to make and upload new pdfs
