@@ -11,6 +11,8 @@ setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 bucksug15 <- read.csv("nectar analysis/data files/bucksugar15.csv", header = T)
 bucksug16 <- read.csv("nectar analysis/data files/bucksugar16.csv", header = T)
 bucksugboth <- rbind(bucksug15,bucksug16)
+rm(bucksug15)
+rm(bucksug16)
 
 bucksugboth$year <- as.factor(year(bucksugboth$date))
 
@@ -25,6 +27,9 @@ cellMean
 
 modBRIX <- lmer(BRIX ~ treatment * year + (1|plot) + (1|year:date), data = bucksugboth)  
 summary(modBRIX)
+plot(modBRIX)
+inflBRIX <- influence(modBRIX, obs = T)
+plot(inflBRIX, which = "cook", main = "Buckwheat BRIX")
 
 BRIX.grid <- ref.grid(modBRIX)
 summary(BRIX.grid)
@@ -34,16 +39,11 @@ lsmeans(BRIX.grid, "year")
 
 BRIX.treat <- lsmeans(BRIX.grid, "treatment")
 pairs(BRIX.treat)
-pairs.treat <- pairs(BRIX.treat)
-test(pairs.treat, joint = T)
 
 BRIX.year <- lsmeans(BRIX.grid, "year")
 pairs(BRIX.year)
-pairs.year <- pairs(BRIX.year)
-test(pairs.year, joint = T)
 
 int.BRIX <- pairs(BRIX.grid, by = "year")
-int.BRIX
 int.BRIXtable <- update(int.BRIX, by = NULL)
 int.BRIXtable
 
