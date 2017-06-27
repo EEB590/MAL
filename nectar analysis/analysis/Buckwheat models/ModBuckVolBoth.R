@@ -11,7 +11,10 @@ setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 buckvol15 <- read.csv("nectar analysis/data files/buckvol15.csv", header = T)
 buckvol16 <- read.csv("nectar analysis/data files/buckvol16.csv", header = T)
 buckvolboth <- rbind(buckvol15,buckvol16)
+rm(buckvol16)
+rm(buckvol15)
 
+buckvolboth$lnvol <- log(buckvolboth$volume)
 buckvolboth$year <- as.factor(year(buckvolboth$date))
 
 cellN <- with(buckvolboth, table(treatment, year))
@@ -20,31 +23,26 @@ cellN
 cellMean <- with(buckvolboth, tapply(volume, list(treatment, year), mean))
 cellMean
 
-modvol <- lmer(volume ~ treatment * year + (1|plot) +(1|year:date), data = buckvolboth)
-summary(modvol)
+modlnvol <- lmer(lnvol ~ treatment * year + (1|plot) +(1|year:date), data = buckvolboth)
+summary(modlnvol)
+plot(modlnvol)
+inflvol <- influence(modlnvol, obs = T)
+plot(inflvol, which = "cook", main = "Buckwheat volume")
 
-volume.grid <- ref.grid(modvol)
-summary(volume.grid)
+lnvol.grid <- ref.grid(modlnvol)
+summary(lnvol.grid)
 
-lsmeans(volume.grid, "treatment")
-lsmeans(volume.grid, "year")
+lnvol.treat <- lsmeans(lnvol.grid, "treatment")
+pairs(lnvol.treat)
 
-volume.treat <- lsmeans(volume.grid, "treatment")
-pairs(volume.treat)
-pairs.treat <- pairs(volume.treat)
-test(pairs.treat, joint = T)
+lnvol.year <- lsmeans(lnvol.grid, "year")
+pairs(lnvol.year)
 
-volume.year <- lsmeans(volume.grid, "year")
-pairs(volume.year)
-pairs.year <- pairs(volume.year)
-test(pairs.year, joint = T)
-
-int.vol <- pairs(volume.grid, by = "year")
-int.vol
+int.vol <- pairs(lnvol.grid, by = "year")
 int.voltable <- update(int.vol, by = NULL)
 int.voltable
 
 test(pairs(int.voltable), joint = T)
 
-Anova(modvol, type = 3)
+Anova(modlnvol, type = 3)
 
