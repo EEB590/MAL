@@ -2,6 +2,7 @@ library(lubridate)
 library(lme4)
 library(nlme)
 library(lsmeans)
+library(car)
 
 # Read and minor munging of dataframes
 
@@ -66,15 +67,31 @@ buckwt$necpres[buckwt$volume == "0"] <- "0"
 buckwt$necpres <- as.factor(buckwt$necpres)
 buckwt <- buckwt[,-c(5:7)]
 
+#Data exploration
+with(balsam, plot(as.factor(date), necpres, main = "Balsamroot", xlab = "Date", ylab = "Absent (0:dark) / Present (1:light)"))
+with(buckwt, plot(as.factor(date), necpres, main = "Buckwheat", xlab = "Date", ylab = "Absent (0:dark) / Present (1:light)"))
+
+with(balsam, plot(plot, necpres, main = "Balsamroot", xlab = "Treatment Plot", ylab = "Absent (0:dark) / Present (1:light)"))
+with(buckwt, plot(plot, necpres, main = "Buckwheat", xlab = "Treatment Plot", ylab = "Absent (0:dark) / Present (1:light)"))
+
+#Remove 2015 buckwheat from analysis (because all 1's)
+buckwt <- subset(buckwt, year != "2015", select = date:necpres)
+
 # Models
   #balsamroot
 modbals <- glmer(necpres ~ treatment * year + (1|plot/plant) + (1| year:date), data = balsam, family = binomial)
 summary(modbals)
+  #interaction?
+Anova(modbals, type = 3)
 
 cellN <- with(balsam, table(treatment, year))
 cellN
 
 necpres.grid <- ref.grid(modbals)
+int.necpres <- pairs(necpres.grid, by = "year")
+int.necprestable <- update(int.necpres, by = NULL)
+int.necprestable
+
 summary(necpres.grid)
 
 lsmeans(necpres.grid, "treatment")
@@ -82,54 +99,25 @@ lsmeans(necpres.grid, "year")
 
 necpres.treat <- lsmeans(necpres.grid, "treatment")
 pairs(necpres.treat)
-pairs.treat <- pairs(necpres.treat)
-test(pairs.treat, joint = T)
 
 necpres.year <- lsmeans(necpres.grid, "year")
 pairs(necpres.year)
-pairs.year <- pairs(necpres.year)
-test(pairs.year, joint = T)
-
-int.necpres <- pairs(necpres.grid, by = "year")
-int.necpres
-int.necprestable <- update(int.necpres, by = NULL)
-int.necprestable
-
-test(pairs(int.necprestable), joint = T)
-
-Anova(modbals, type = 3)
 
 
-  #buckwheat
-modbuck <- glmer(necpres ~ treatment * year + (1|plot) + (1| year:date), data = buckwt, family = binomial)
+  #buckwheat (only 2016)
+modbuck <- glmer(necpres ~ treatment + (1|plot) + (1|date), data = buckwt, family = binomial)
 summary(modbuck)
+
+Anova(modbuck)
 
 cellN <- with(buckwt, table(treatment, year))
 cellN
 
-necpres.grid <- ref.grid(modbuck)
-summary(necpres.grid)
+necpres.grid.buck <- ref.grid(modbuck)
+summary(necpres.grid.buck)
 
-lsmeans(necpres.grid, "treatment")
-lsmeans(necpres.grid, "year")
+lsmeans(necpres.grid.buck, "treatment")
 
-necpres.treat <- lsmeans(necpres.grid, "treatment")
+necpres.treat <- lsmeans(necpres.grid.buck, "treatment")
 pairs(necpres.treat)
-pairs.treat <- pairs(necpres.treat)
-test(pairs.treat, joint = T)
-
-necpres.year <- lsmeans(necpres.grid, "year")
-pairs(necpres.year)
-pairs.year <- pairs(necpres.year)
-test(pairs.year, joint = T)
-
-int.necpres <- pairs(necpres.grid, by = "year")
-int.necpres
-int.necprestable <- update(int.necpres, by = NULL)
-int.necprestable
-
-test(pairs(int.necprestable), joint = T)
-
-Anova(modbals, type = 3)
-
 
