@@ -100,5 +100,5 @@ Updated presence/absence model to remove 2015 buckwheat (because all 1's)
 Moved data exploration into this file
 Moved obsolete pres/abs model diagnostics file to "old analysis"
 ran pdfs for all volume, mass, BRIX and presence/absence models  (the knitter doesn't like the "influence" function)
-
+Updated model results file with new model runs
 
