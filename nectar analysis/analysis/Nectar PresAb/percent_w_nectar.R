@@ -4,6 +4,8 @@ library(nlme)
 library(lsmeans)
 library(car)
 
+setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
+
 # Read and minor munging of dataframes
 
 balsam15 <- read.csv("nectar analysis/data files/balsam15.csv", header = T, as.is = T)
