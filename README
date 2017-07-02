@@ -102,3 +102,9 @@ Moved obsolete pres/abs model diagnostics file to "old analysis"
 ran pdfs for all volume, mass, BRIX and presence/absence models  (the knitter doesn't like the "influence" function)
 Updated model results file with new model runs
 
+Notes July 1
+wrote munging for balsamroot phenology 2016.  Did some data exploration.
+Need to think about how best to represent # of flowers each plant produces
+
+
+
