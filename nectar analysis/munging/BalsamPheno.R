@@ -2,6 +2,8 @@ library(dplyr)
 library(tidyr)
 library(lubridate)
 
+setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
+
 bp1 <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/160528.csv", header = T, as.is = T)
 bp2 <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/160531.csv", header = T, as.is = T)
 bp3 <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/160603.csv", header = T, as.is = T)
@@ -116,3 +118,64 @@ wsr1 <- subset(bpsmall, plantid == "WSR10-1", select = c(1:9))
 wsr3 <- subset(bpsmall, plantid == "WSR10-3", select = c(1:9))
 wsr7 <- subset(bpsmall, plantid == "WSR10-7", select = c(1:9))
 wsr9 <- subset(bpsmall, plantid == "WSR10-9", select = c(1:9))
+
+# Heated plots
+ch2
+ch3
+ch4
+ch5
+ch6
+ch7
+chsr1
+chsr2
+chsr4
+chsr5
+chsr6
+eh11
+eh3
+eh4
+eh5
+eh6
+eh7
+eh8
+eh9
+ehsr1
+ehsr2
+ehsr4
+ehsr5
+whsr1
+whsr2
+whsr3
+whsr4
+
+# Control Plots
+cc1
+cc10
+cc4
+cc9
+csr1
+csr3
+csr5
+csr6
+csr8
+csr9
+ec1
+ec3
+esr1
+esr11
+esr2
+esr3
+esr4
+esr6
+esr8
+wc1
+wc2
+wc3
+wc4
+wc5
+wc7
+wsr1
+wsr3
+wsr7
+wsr9
+
