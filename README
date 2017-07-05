@@ -106,5 +106,10 @@ Notes July 1
 wrote munging for balsamroot phenology 2016.  Did some data exploration.
 Need to think about how best to represent # of flowers each plant produces
 
+Notes July 5
+Spoke with John Pleasants on July 3 about how best to represent # of flowers each plant produces.  He suggested that the specific strategy (i.e., taking max flowers, taking max scenesed, etc.) wasn't as important as being consistent with the method for assigning a number across both treatments
+Take home: use whatever method seems best, just be consistent across both control and treated plants
 
-
+Finished munging for 2015 and 2016 Balsamroot 
+Need now to sit down with the by-plant dfs and assign a total number of flowers to each plant
+Then put in a new spreadsheet, import into R, and run analysis.
