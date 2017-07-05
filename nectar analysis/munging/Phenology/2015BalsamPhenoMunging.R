@@ -21,6 +21,8 @@ rm(bp15all)
 rm(bptemp)
 
 #create unique plant ID
+bp15$Plot <- gsub("\\(", "", bp15$Plot)
+bp15$Plot <- gsub("\\)", "", bp15$Plot)
 bp15$plantid <- paste(bp15$Plot, bp15$Plant, sep = "-")
 
 #create treatment category
@@ -49,3 +51,16 @@ bpsmall$treatment <- as.factor(bpsmall$treatment)
 bpsmall[is.na(bpsmall)] <- 0
 bpsmall$TF <- rowSums(bpsmall[,5:8])
 
+#Create plant-level tables
+
+plantdfs <- list()
+dfnames <- levels(bpsmall$plantid)
+for (i in 1:length(dfnames)) {
+  plantdfs[[i]] = as.data.frame(subset(bpsmall, plantid == dfnames[i], select = c(1:9)))
+}
+
+# lapply(plantdfs, print)  For some reason this prints the list twice, not sure why.  For loop below works right.
+
+for (i in 1:length(plantdfs)){
+  print(plantdfs[[i]])
+}

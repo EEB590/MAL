@@ -49,133 +49,14 @@ bpsmall$treatment <- as.factor(bpsmall$treatment)
 bpsmall[is.na(bpsmall)] <- 0
 bpsmall$TF <- rowSums(bpsmall[,5:8])
 
-#To get the maximum number of flowers for plant CC6-1 in the senesced column:
-#max(subset(bpsmall, plantid == "CC6-1", select = c(1:9))$SD)
+#Create plant-level tables
 
-cc1 <- subset(bpsmall, plantid == "CC6-1", select = c(1:9))
-cc10 <- subset(bpsmall, plantid == "CC6-10", select = c(1:9))
-cc4 <- subset(bpsmall, plantid == "CC6-4", select = c(1:9))
-cc9 <- subset(bpsmall, plantid == "CC6-9", select = c(1:9))
+plantdfs <- list()
+dfnames <- levels(bpsmall$plantid)
+for (i in 1:length(dfnames)) {
+  plantdfs[[i]] = as.data.frame(subset(bpsmall, plantid == dfnames[i], select = c(1:9)))
+}
 
-ch2 <- subset(bpsmall, plantid == "CH5-2", select = c(1:9))
-ch3 <- subset(bpsmall, plantid == "CH5-3", select = c(1:9))
-ch4 <- subset(bpsmall, plantid == "CH5-4", select = c(1:9))
-ch5 <- subset(bpsmall, plantid == "CH5-5", select = c(1:9))
-ch6 <- subset(bpsmall, plantid == "CH5-6", select = c(1:9))
-ch7 <- subset(bpsmall, plantid == "CH5-7", select = c(1:9))
-
-chsr1 <- subset(bpsmall, plantid == "CHSR8-1", select = c(1:9))
-chsr2 <- subset(bpsmall, plantid == "CHSR8-2", select = c(1:9))
-chsr4 <- subset(bpsmall, plantid == "CHSR8-4", select = c(1:9))
-chsr5 <- subset(bpsmall, plantid == "CHSR8-5", select = c(1:9))
-chsr6 <- subset(bpsmall, plantid == "CHSR8-6", select = c(1:9))
-
-csr1 <- subset(bpsmall, plantid == "CSR7-1", select = c(1:9))
-csr3 <- subset(bpsmall, plantid == "CSR7-3", select = c(1:9))
-csr5 <- subset(bpsmall, plantid == "CSR7-5", select = c(1:9))
-csr6 <- subset(bpsmall, plantid == "CSR7-6", select = c(1:9))
-csr8 <- subset(bpsmall, plantid == "CSR7-8", select = c(1:9))
-csr9 <- subset(bpsmall, plantid == "CSR7-9", select = c(1:9))
-
-ec1 <- subset(bpsmall, plantid == "EC3-1", select = c(1:9))
-ec3 <- subset(bpsmall, plantid == "EC3-3", select = c(1:9))
-
-eh11 <- subset(bpsmall, plantid == "EH4-11", select = c(1:9))
-eh3 <- subset(bpsmall, plantid == "EH4-3", select = c(1:9))
-eh4 <- subset(bpsmall, plantid == "EH4-4", select = c(1:9))
-eh5 <- subset(bpsmall, plantid == "EH4-5", select = c(1:9))
-eh6 <- subset(bpsmall, plantid == "EH4-6", select = c(1:9))
-eh7 <- subset(bpsmall, plantid == "EH4-7", select = c(1:9))
-eh8 <- subset(bpsmall, plantid == "EH4-8", select = c(1:9))
-eh9 <- subset(bpsmall, plantid == "EH4-9", select = c(1:9))
-
-ehsr1 <- subset(bpsmall, plantid == "EHSR1-1", select = c(1:9))
-ehsr2 <- subset(bpsmall, plantid == "EHSR1-2", select = c(1:9))
-ehsr4 <- subset(bpsmall, plantid == "EHSR1-4", select = c(1:9))
-ehsr5 <- subset(bpsmall, plantid == "EHSR1-5", select = c(1:9))
-
-esr1 <- subset(bpsmall, plantid == "ESR2-1", select = c(1:9))
-esr11 <- subset(bpsmall, plantid == "ESR2-11", select = c(1:9))
-esr2 <- subset(bpsmall, plantid == "ESR2-2", select = c(1:9))
-esr3 <- subset(bpsmall, plantid == "ESR2-3", select = c(1:9))
-esr4 <- subset(bpsmall, plantid == "ESR2-4", select = c(1:9))
-esr6 <- subset(bpsmall, plantid == "ESR2-6", select = c(1:9))
-esr8 <- subset(bpsmall, plantid == "ESR2-8", select = c(1:9))
-
-wc1 <- subset(bpsmall, plantid == "WC11-1", select = c(1:9))
-wc2 <- subset(bpsmall, plantid == "WC11-2", select = c(1:9))
-wc3 <- subset(bpsmall, plantid == "WC11-3", select = c(1:9))
-wc4 <- subset(bpsmall, plantid == "WC11-4", select = c(1:9))
-wc5 <- subset(bpsmall, plantid == "WC11-5", select = c(1:9))
-wc7 <- subset(bpsmall, plantid == "WC11-7", select = c(1:9))
-
-whsr1 <- subset(bpsmall, plantid == "WHSR9-1", select = c(1:9))
-whsr2 <- subset(bpsmall, plantid == "WHSR9-2", select = c(1:9))
-whsr3 <- subset(bpsmall, plantid == "WHSR9-3", select = c(1:9))
-whsr4 <- subset(bpsmall, plantid == "WHSR9-4", select = c(1:9))
-
-wsr1 <- subset(bpsmall, plantid == "WSR10-1", select = c(1:9))
-wsr3 <- subset(bpsmall, plantid == "WSR10-3", select = c(1:9))
-wsr7 <- subset(bpsmall, plantid == "WSR10-7", select = c(1:9))
-wsr9 <- subset(bpsmall, plantid == "WSR10-9", select = c(1:9))
-
-# Heated plots
-ch2
-ch3
-ch4
-ch5
-ch6
-ch7
-chsr1
-chsr2
-chsr4
-chsr5
-chsr6
-eh11
-eh3
-eh4
-eh5
-eh6
-eh7
-eh8
-eh9
-ehsr1
-ehsr2
-ehsr4
-ehsr5
-whsr1
-whsr2
-whsr3
-whsr4
-
-# Control Plots
-cc1
-cc10
-cc4
-cc9
-csr1
-csr3
-csr5
-csr6
-csr8
-csr9
-ec1
-ec3
-esr1
-esr11
-esr2
-esr3
-esr4
-esr6
-esr8
-wc1
-wc2
-wc3
-wc4
-wc5
-wc7
-wsr1
-wsr3
-wsr7
-wsr9
-
+for (i in 1:length(plantdfs)){
+  print(plantdfs[[i]])
+}
