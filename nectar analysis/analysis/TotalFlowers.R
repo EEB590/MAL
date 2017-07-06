@@ -24,4 +24,4 @@ qplot(flowers$treatment, flowers$year15, geom = "boxplot", xlab = "Treatment", y
 qplot(flowers$treatment, flowers$year16, geom = "boxplot", xlab = "Treatment", ylab = "# of flowers per plant", main = "2016")
 qplot(flowers$treatment, flowers$total, geom = "boxplot", xlab = "Treatment", ylab = "# of flowers per plant", main = "2015 and 2016 totaled")
 
-#model?
+#model
