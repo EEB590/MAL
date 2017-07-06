@@ -125,5 +125,6 @@ In all of these cases, a different person might have assigned a different number
 Many plants produced flowers in one year but not the other (2 plants produced in 2015 that didn't in 2016, 20 produced in 2016 that didn't produce in 2015)
 Double-checked original data for these plants, and this is accurate.
 
-
+Look at some plots of the data - it looks like there's something going on there
+Need to ask Adam about appropriate model (i.e., random effect by plant, year?, plot?)
 
