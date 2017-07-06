@@ -113,3 +113,17 @@ Take home: use whatever method seems best, just be consistent across both contro
 Finished munging for 2015 and 2016 Balsamroot 
 Need now to sit down with the by-plant dfs and assign a total number of flowers to each plant
 Then put in a new spreadsheet, import into R, and run analysis.
+
+Notes July 6
+
+Assigned total flowers to each plant:
+Looked primarily at the number of senesced flowers and TF at the end of the season.  Most plants were straightforward - it was obvious how many flowers the plant had produced.  However, some plants had inconsistently recorded flower numbers, in this case we made a judgement based on our knowledge of field techniques.  Again, most plants were straighforward.
+Plants where we had to make a judgement call: (2015): CHSR8-4, CHSR8-6, EHSR2-8, EH4-6, WHSR9-3 (5/47 or 11%)
+(2016): CHSR8-4, EH4-6, EHSR1-1, EHSR1-2, WHSR9-1, WHSR9-2, CC6-1, CSR7-3, CSR7-9, ESR2-2, ESR2-3, ESR2-4, WSR10-1 (13/59 or 22%)
+In all of these cases, a different person might have assigned a different number, but most of the time it won't be off my more than one.
+
+Many plants produced flowers in one year but not the other (2 plants produced in 2015 that didn't in 2016, 20 produced in 2016 that didn't produce in 2015)
+Double-checked original data for these plants, and this is accurate.
+
+
+
