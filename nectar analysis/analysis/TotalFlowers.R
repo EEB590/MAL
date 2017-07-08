@@ -1,9 +1,11 @@
 library(lme4)
 library(lsmeans)
 library(ggplot2)
+library(blmeco)
 
 setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 
+#Create df
 flowers <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/TotalFlowersPerPlant.csv", header = T, as.is = T)
 
 flowers$total <- apply(flowers[4:5], 1, sum)
@@ -11,7 +13,9 @@ names(flowers)[4:5] <- c("year15", "year16")
 flowers$plot <- as.factor(flowers$plot)
 flowers$treatment <- as.factor(flowers$treatment)
 flowers$plantid <- as.factor(flowers$plantid)
+head(flowers)
 
+#Data exploration
 qplot(flowers$year15, binwidth = 1, xlab = "# of flowers", main = "2015")
 qplot(flowers$year16, binwidth = 1, xlab = "# of flowers", main = "2016")
 qplot(flowers$total, binwidth = 1, xlab = "# of flowers", main = "2015 and 2016 totaled")
@@ -28,4 +32,52 @@ plot(flowers$plot, flowers$year15, main = "2015")
 plot(flowers$plot, flowers$year16, main = "2016")
 plot(flowers$plot, flowers$total, main = "2015 and 2016 totaled")
 
-#model
+# models
+  #2015
+mod15 <- glmer(year15 ~ treatment + (1|plantid), data = flowers, family = poisson)
+dispersion_glmer(mod15)
+summary(mod15)
+
+plot(mod15)
+
+qqnorm(resid(mod15), main="normal qq-plot, residuals")
+qqline(resid(mod15))
+
+qqnorm(ranef(mod15)$plantid[,1])
+qqline(ranef(mod15)$plantid[,1])
+
+plot(fitted(mod15), jitter(flowers$year15,0.1), xlab = "fitted", ylab = "observed", main = "2015")  #fitted vs observed
+abline(0,1)
+
+  #2016
+mod16 <- glmer(year16 ~ treatment + (1|plantid), data = flowers, family = poisson)
+dispersion_glmer(mod16)
+
+summary(mod16)
+
+plot(mod16)
+
+qqnorm(resid(mod16), main="normal qq-plot, residuals")
+qqline(resid(mod16))
+
+qqnorm(ranef(mod16)$plantid[,1])
+qqline(ranef(mod16)$plantid[,1])
+
+plot(fitted(mod16), jitter(flowers$year16,0.1), xlab = "fitted", ylab = "observed", main = "2016")  #fitted vs observed
+abline(0,1)
+
+  #2015 plus 2016
+modtot <- glmer(total ~ treatment + (1|plantid), data = flowers, family = poisson)
+dispersion_glmer(modtot)
+summary(modtot)
+plot(modtot)
+
+qqnorm(resid(modtot), main="normal qq-plot, residuals")
+qqline(resid(modtot))
+
+qqnorm(ranef(modtot)$plantid[,1])
+qqline(ranef(modtot)$plantid[,1])
+
+plot(fitted(modtot), jitter(flowers$total,0.1), xlab = "fitted", ylab = "observed", main = "2015 and 2016") #fitted vs observed
+abline(0,1)
+
