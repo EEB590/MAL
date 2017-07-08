@@ -128,3 +128,11 @@ Double-checked original data for these plants, and this is accurate.
 Look at some plots of the data - it looks like there's something going on there
 Need to ask Adam about appropriate model (i.e., random effect by plant, year?, plot?)
 
+Notes July 8
+
+Added tentative models for flower numbers, glmer(#offlowers ~ treatment + (1|plant), family = poisson), for 2015, 2016, and both
+checked disperson and it looks good (very close to 1 for all 3 models)
+checked model fit for all three models - also looks good, but residuals plot is a little funky - not sure how to interpret
+Ask Adam = poisson distribution correct?  How to interpret residuals plot?
+
+
