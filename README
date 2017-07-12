@@ -135,4 +135,7 @@ checked disperson and it looks good (very close to 1 for all 3 models)
 checked model fit for all three models - also looks good, but residuals plot is a little funky - not sure how to interpret
 Ask Adam = poisson distribution correct?  How to interpret residuals plot?
 
+Notes from meeting with Adam July 10
+Add plot-level random effect to # of flowers models for 2015 and 2016
+Get rid of model that combines both years.  The model I had was incorrect, and by the time you correct it you may as well have just run the two different years separately.
 
