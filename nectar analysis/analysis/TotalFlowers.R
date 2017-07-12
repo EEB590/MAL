@@ -34,7 +34,7 @@ plot(flowers$plot, flowers$total, main = "2015 and 2016 totaled")
 
 # models
   #2015
-mod15 <- glmer(year15 ~ treatment + (1|plantid), data = flowers, family = poisson)
+mod15 <- glmer(year15 ~ treatment + (1|plantid) + (1|plot), data = flowers, family = poisson)
 dispersion_glmer(mod15)
 summary(mod15)
 
@@ -50,7 +50,7 @@ plot(fitted(mod15), jitter(flowers$year15,0.1), xlab = "fitted", ylab = "observe
 abline(0,1)
 
   #2016
-mod16 <- glmer(year16 ~ treatment + (1|plantid), data = flowers, family = poisson)
+mod16 <- glmer(year16 ~ treatment + (1|plantid) + (1|plot), data = flowers, family = poisson)
 dispersion_glmer(mod16)
 
 summary(mod16)
@@ -65,19 +65,3 @@ qqline(ranef(mod16)$plantid[,1])
 
 plot(fitted(mod16), jitter(flowers$year16,0.1), xlab = "fitted", ylab = "observed", main = "2016")  #fitted vs observed
 abline(0,1)
-
-  #2015 plus 2016
-modtot <- glmer(total ~ treatment + (1|plantid), data = flowers, family = poisson)
-dispersion_glmer(modtot)
-summary(modtot)
-plot(modtot)
-
-qqnorm(resid(modtot), main="normal qq-plot, residuals")
-qqline(resid(modtot))
-
-qqnorm(ranef(modtot)$plantid[,1])
-qqline(ranef(modtot)$plantid[,1])
-
-plot(fitted(modtot), jitter(flowers$total,0.1), xlab = "fitted", ylab = "observed", main = "2015 and 2016") #fitted vs observed
-abline(0,1)
-
