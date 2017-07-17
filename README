@@ -143,6 +143,7 @@ No pattern of treatment by year in total number of flowers (i.e., no clustering 
 Add plot-level random effect to # of flowers models for 2015 and 2016, so that model matches experimental design
 Get rid of model that combines both years.  The model I had was incorrect, and by the time you correct it you may as well have just run the two different years separately.
 Models for nectar charactersitics and presence/absence look good - they're done.
+Saved R history from this session in Documents folder
 
 Notes July 11th
 Corrected models for total number of flowers per notes from Adam above
