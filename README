@@ -136,6 +136,11 @@ checked model fit for all three models - also looks good, but residuals plot is 
 Ask Adam = poisson distribution correct?  How to interpret residuals plot?
 
 Notes from meeting with Adam July 10
-Add plot-level random effect to # of flowers models for 2015 and 2016
+Add plot-level random effect to # of flowers models for 2015 and 2016, so that model matches experimental design
 Get rid of model that combines both years.  The model I had was incorrect, and by the time you correct it you may as well have just run the two different years separately.
+Models for nectar charactersitics and presence/absence look good - they're done.
 
+Notes July 11th
+Corrected models for total number of flowers per notes from Adam above
+Calling the analysis done - moving on to manuscript
+Need to reorganize files and develop DMP, then archive
