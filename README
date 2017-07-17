@@ -136,6 +136,10 @@ checked model fit for all three models - also looks good, but residuals plot is 
 Ask Adam = poisson distribution correct?  How to interpret residuals plot?
 
 Notes from meeting with Adam July 10
+Plotted 2015 vs 2016 total number of flowers, colored by treatment
+> plot(flowers$year15, flowers$year16, xlim=c(0,22), ylim=c(0,22)) #drops the 1 outlier off the graph so we can see the rest clearly
+> with(subset(flowers, treatment=="H"), points(year15, year16, pch=16, col="blue")) #color heat treatment data blue
+No pattern of treatment by year in total number of flowers (i.e., no clustering of treatment data)
 Add plot-level random effect to # of flowers models for 2015 and 2016, so that model matches experimental design
 Get rid of model that combines both years.  The model I had was incorrect, and by the time you correct it you may as well have just run the two different years separately.
 Models for nectar charactersitics and presence/absence look good - they're done.
