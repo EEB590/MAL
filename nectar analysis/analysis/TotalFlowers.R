@@ -22,7 +22,8 @@ qplot(flowers$total, binwidth = 1, xlab = "# of flowers", main = "2015 and 2016 
 
 ggplot(flowers, aes(x = year15)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.)
 ggplot(flowers, aes(x = year16)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.)
-ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.)
+ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.) +
+  labs(title = "Total Flowers by Treatment \n2015 + 2016", subtitle = "2015 + 2016", x = "Total Flowers", y = "Count of Plants")
 
 qplot(flowers$treatment, flowers$year15, geom = "boxplot", xlab = "Treatment", ylab = "# of flowers per plant", main = "2015")
 qplot(flowers$treatment, flowers$year16, geom = "boxplot", xlab = "Treatment", ylab = "# of flowers per plant", main = "2016")
