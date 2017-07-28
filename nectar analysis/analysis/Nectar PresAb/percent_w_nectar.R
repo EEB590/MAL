@@ -44,6 +44,14 @@ balsheat <- subset(balsam, treatment == "H")
 pz.bah <- sum(balsheat$volume == "0")/nrow(balsheat)
 pnz.bah <- sum(balsheat$volume != "0")/nrow(balsheat)
 
+balscontrol15 <- subset(balsam, treatment == "C" & year == "2015")
+pz.bac15 <- sum(balscontrol15$volume == "0")/nrow(balscontrol15)
+pnz.bac15 <- sum(balscontrol15$volume != "0")/nrow(balscontrol15)
+
+balsheat15 <- subset(balsam, treatment == "H" & year == "2015")
+pz.bah15 <- sum(balsheat15$volume == "0")/nrow(balsheat15)
+pnz.bah15 <- sum(balsheat15$volume != "0")/nrow(balsheat15)
+
 buckcontrol <- subset(buckwt, treatment == "C")
 pz.buc <- sum(buckcontrol$volume == "0")/nrow(buckcontrol)
 pnz.buc <- sum(buckcontrol$volume != "0")/nrow(buckcontrol)
