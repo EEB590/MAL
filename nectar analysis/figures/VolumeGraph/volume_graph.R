@@ -22,7 +22,7 @@ ggplot(oplersm, aes(x=factor(group), y = volume)) +
   scale_y_log10() +
   xlab("Functional Group") +
   ylab("Volume of Nectar (microliters, log scale)") +
-  ggtitle("Nectar Volume Preferences") +
+  ggtitle("Nectar Volume, Preferences vs. Observed") +
   geom_hline(yintercept = meanH, col = "red") +
   geom_hline(yintercept = meanC, col = "green")
 
