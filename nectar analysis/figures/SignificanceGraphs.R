@@ -43,24 +43,22 @@ bals16mass <- ggplot(balssug16, aes(x=treatment, y=mass)) + geom_boxplot() +
   ylab("Nectar sugar mass (mg)") + ggtitle("Balsamroot Sugar Mass 2016")
 
 buck15volln <- ggplot(buckvol15, aes(x=treatment, y=lnvol)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar Volume (microliters) (log transformed)") + ggtitle("Buckwheat Volume 2015\n(log transformed)")
+  labs( x = "Treatment", y = "Nectar Volume (microliters)", title = "Buckwheat Volume 2015", subtitle = "(log transformed)")
 
 buck15brix <- ggplot(bucksug15, aes(x=treatment, y=BRIX)) + geom_boxplot() +
   xlab("Treatment") +
   ylab("Nectar BRIX") + ggtitle("Buckwheat BRIX 2015")
 
 necpa <- ggplot(balspa, aes(x = datechr, fill = necpres)) +
-  theme(axis.text.x = element_text(angle=90, hjust=1, vjust=1)) +
+  theme(axis.text.x = element_text(angle=20, hjust=1, vjust=1)) +
   theme(axis.title.x=element_blank()) +
   geom_bar(position = "fill") +
   scale_fill_manual(values=c("gray30", "grey70"), labels=c("Absent", "Present")) +
-  ylab("Percent") +
-  ggtitle("Balsamroot 2015 Nectar\nPresence/Absence, by Treatment") +
+  labs(y = "Percent", title = "Nectar Presence/Absence", subtitle = "by treatment, Balsamroot 2015") +
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
   facet_grid(treatment~.)
 
 totflow <- ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.) +
-  labs(title = "Total Flowers by Treatment \nBalsamroot, 2015 + 2016", subtitle = "2015 + 2016", x = "Total Flowers", y = "Count of Plants") 
+  labs(title = "Total Flowers", subtitle = "by treatment, Balsamroot 2015 + 2016", x = "Total Flowers", y = "Count of Plants") 
 
 grid.arrange(bals15brix, bals16mass, buck15brix, buck15volln, necpa, totflow, ncol=2)
