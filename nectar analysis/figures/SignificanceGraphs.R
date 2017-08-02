@@ -3,64 +3,57 @@ library(dplyr)
 
 setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
 
-balsvol15 <- read.csv("nectar analysis/data files/balsvol15.csv", header = T)
-balsvol16 <- read.csv("nectar analysis/data files/balsvol16.csv", header = T)
-balsvolboth <- rbind(balsvol15,balsvol16)
-
+#Balsamroot
 balssug15 <- read.csv("nectar analysis/data files/balssugar15.csv", header = T)
 balssug16 <- read.csv("nectar analysis/data files/balssugar16.csv", header = T)
-balssugboth <- rbind(balssug15,balssug16)
-
-balsvol15$lnvol <- log(balsvol15$volume)
-balsvol16$lnvol <- log(balsvol16$volume)
-balsvolboth$lnvol <- log(balsvolboth$volume)
-
 balssug15$lnmass <- log(balssug15$mass)
 balssug16$lnmass <- log(balssug16$mass)
-balssugboth$lnmass <- log(balssugboth$mass)
 
-#2015
+balspa <- read.csv("nectar analysis/data files/balsam15.csv", header = T)
+balspa$necpres[balspa$volume != "0"] <- "1"
+balspa$necpres[balspa$volume == "0"] <- "0"
+balspa$necpres <- as.factor(balspa$necpres)
+balspa <- balspa[,-c(2,4:7)]
 
-ggplot(balsvol15, aes(x=treatment, y=volume)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar Volume (microliters)") + ggtitle("Balsamroot Volume 2015")
+flowers <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/TotalFlowersPerPlant.csv", header = T, as.is = T)
+flowers$total <- apply(flowers[4:5], 1, sum)
+flowers <- flowers[,-c(1,3:5)]
+flowers$treatment <- as.factor(flowers$treatment)
 
-ggplot(balsvol15, aes(x=treatment, y=lnvol)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar Volume (microliters) (log transformed)") + ggtitle("Balsamroot Volume 2015 (log transformed)")
 
-ggplot(balssug15, aes(x=treatment, y=BRIX)) + geom_boxplot() +
+
+#Buckwheat
+buckvol15 <- read.csv("nectar analysis/data files/buckvol15.csv", header = T)
+bucksug15 <- read.csv("nectar analysis/data files/bucksugar15.csv", header = T)
+buckvol15$lnvol <- log(buckvol15$volume)
+
+
+#Plots
+
+bals15brix <- ggplot(balssug15, aes(x=treatment, y=BRIX)) + geom_boxplot() +
   xlab("Treatment") +
   ylab("Nectar BRIX") + ggtitle("Balsamroot BRIX 2015")
 
-ggplot(balssug15, aes(x=treatment, y=mass)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar sugar mass (mg)") + ggtitle("Balsamroot sugar mass 2015")
-
-ggplot(balssug15, aes(x=treatment, y=lnmass)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar sugar mass (mg) (log transformed)") + ggtitle("Balsamroot sugar mass 2015 (log transformed)")
-
-
-#2016
-
-ggplot(balsvol16, aes(x=treatment, y=volume)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar Volume (microliters)") + ggtitle("Balsamroot Volume 2016")
-
-ggplot(balsvol16, aes(x=treatment, y=lnvol)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar Volume (microliters) (log transformed)") + ggtitle("Balsamroot Volume 2016 (log transformed)")
-
-ggplot(balssug16, aes(x=treatment, y=BRIX)) + geom_boxplot() +
-  xlab("Treatment") +
-  ylab("Nectar BRIX") + ggtitle("Balsamroot BRIX 2016")
-
-ggplot(balssug16, aes(x=treatment, y=mass)) + geom_boxplot() +
+bals16mass <- ggplot(balssug16, aes(x=treatment, y=mass)) + geom_boxplot() +
   xlab("Treatment") +
   ylab("Nectar sugar mass (mg)") + ggtitle("Balsamroot sugar mass 2016")
 
-ggplot(balssug16, aes(x=treatment, y=lnmass)) + geom_boxplot() +
+buck15volln <- ggplot(buckvol15, aes(x=treatment, y=lnvol)) + geom_boxplot() +
   xlab("Treatment") +
-  ylab("Nectar sugar mass (mg) (log transformed)") + ggtitle("Balsamroot sugar mass 2016 (log transformed)")
+  ylab("Nectar Volume (microliters) (log transformed)") + ggtitle("Buckwheat Volume 2015 (log transformed)")
 
+buck15brix <- ggplot(bucksug15, aes(x=treatment, y=BRIX)) + geom_boxplot() +
+  xlab("Treatment") +
+  ylab("Nectar BRIX") + ggtitle("Buckwheat BRIX 2015")
+
+necpa <- ggplot(balspa, aes(x = date, fill = necpres)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values=c("gray30", "grey70"), labels=c("Absent", "Present")) +
+  xlab("Date") +
+  ylab("Percent") +
+  ggtitle("Balsamroot 2015 Nectar Presence/Absence") +
+  guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
+  facet_grid(treatment~.)
+
+totflow <- ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.) +
+  labs(title = "Total Flowers by Treatment \n2015 + 2016", subtitle = "2015 + 2016", x = "Total Flowers", y = "Count of Plants")
