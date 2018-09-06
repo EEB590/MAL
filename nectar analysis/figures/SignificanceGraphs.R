@@ -21,11 +21,6 @@ balspa$datechr <- gsub("06-", "June ", balspa$datechr)
 balspa$datechr <- as.factor(balspa$datechr)
 balspa <- balspa[,2:4]
 
-flowers <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/TotalFlowersPerPlant.csv", header = T, as.is = T)
-flowers$total <- apply(flowers[4:5], 1, sum)
-flowers <- flowers[,-c(1,3:5)]
-flowers$treatment <- as.factor(flowers$treatment)
-
 #Buckwheat
 buckvol15 <- read.csv("nectar analysis/data files/buckvol15.csv", header = T)
 bucksug15 <- read.csv("nectar analysis/data files/bucksugar15.csv", header = T)
@@ -58,7 +53,26 @@ necpa <- ggplot(balspa, aes(x = datechr, fill = necpres)) +
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
   facet_grid(treatment~.)
 
-totflow <- ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.) +
-  labs(title = "Total Flowers", subtitle = "by treatment, Balsamroot 2015 + 2016", x = "Total Flowers", y = "Count of Plants") 
+flowers <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/TotalFlowersPerPlant.csv", header = T, as.is = T)
+names(flowers)[4:5] <- c("count15", "count16")
+flowers$treatment <- as.factor(flowers$treatment)
+
+g1 <- ggplot(flowers, aes(x = treatment, y = count15)) + geom_boxplot() +
+  ylim(0, 50) + labs(title = "2015", x = NULL, y = "Count")
+g2 <- ggplot(flowers, aes(x = treatment, y = count16)) + geom_boxplot() +
+  ylim(0, 50) + labs(title = "2016", x = NULL, y = NULL)
+totflow <- grid.arrange(g1, g2, ncol = 2, top = grid::textGrob("Total # of Flowers, Balsamroot",x=0.05,hjust=0), bottom = "Treatment")
 
 grid.arrange(bals15brix, bals16mass, buck15brix, buck15volln, necpa, totflow, ncol=2)
+
+
+###  Old code
+#flowers <- read.csv("nectar analysis/data files/raw data/Balsamroot phenology/TotalFlowersPerPlant.csv", header = T, as.is = T)
+#flowers$total <- apply(flowers[4:5], 1, sum)
+#flowers <- flowers[,-c(1,3:5)]
+#flowers$treatment <- as.factor(flowers$treatment)
+
+#totflow <- ggplot(flowers, aes(x = total)) + geom_histogram(binwidth = 1) + facet_grid(treatment~.) +
+#  labs(title = "Total Flowers", subtitle = "by treatment, Balsamroot 2015 + 2016", x = "Total Flowers", y = "Count of Plants") 
+
+

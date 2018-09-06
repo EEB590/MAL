@@ -66,3 +66,23 @@ qqline(ranef(mod16)$plantid[,1])
 
 plot(fitted(mod16), jitter(flowers$year16,0.1), xlab = "fitted", ylab = "observed", main = "2016")  #fitted vs observed
 abline(0,1)
+
+
+
+### LSmeans
+  #2015
+summary(mod15)
+lnvol.grid <- ref.grid(mod15)
+summary(lnvol.grid)
+lnvol.treat <- lsmeans(lnvol.grid, "treatment")
+pairs(lnvol.treat)
+Anova(mod15, type = 3)
+
+  #2016
+summary(mod16)
+lnvol.grid <- ref.grid(mod16)
+summary(lnvol.grid)
+lnvol.treat <- lsmeans(lnvol.grid, "treatment")
+pairs(lnvol.treat)
+Anova(mod16, type = 3)
+
