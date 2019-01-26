@@ -4,7 +4,7 @@ library(nlme)
 library(lsmeans)
 library(car)
 
-setwd("D:/Iowa State University/Debinski Lab/Nectar data/MAL")
+setwd("C:/Users/Audrey McCombs/Desktop/MAL")
 
 # Read and minor munging of dataframes
 
