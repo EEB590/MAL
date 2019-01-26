@@ -94,6 +94,10 @@ summary(modbals)
   #interaction?
 Anova(modbals, type = 3)
 
+balsam$count <- as.numeric(balsam$necpres) - 1
+cellMean <- with(balsam, tapply(count, list(treatment, year), sum))
+cellMean
+
 cellN <- with(balsam, table(treatment, year))
 cellN
 
@@ -119,6 +123,10 @@ modbuck <- glmer(necpres ~ treatment + (1|plot) + (1|date), data = buckwt, famil
 summary(modbuck)
 
 Anova(modbuck)
+
+buckwt$count <- as.numeric(buckwt$necpres) - 1
+cellMean <- with(buckwt, tapply(count, list(treatment, year), sum))
+cellMean
 
 cellN <- with(buckwt, table(treatment, year))
 cellN
