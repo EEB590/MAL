@@ -27,6 +27,10 @@ cellMean
 
 modBRIX <- lmer(BRIX ~ treatment * year + (1|plot) + (1|year:date), data = bucksugboth)  
 summary(modBRIX)
+
+buck.brix <- emmeans::emmeans(modBRIX, c("treatment", "year"), type='response')
+emmeans::joint_tests(buck.brix)
+
 plot(modBRIX)
 inflBRIX <- influence(modBRIX, obs = T)
 plot(inflBRIX, which = "cook", main = "Buckwheat BRIX")

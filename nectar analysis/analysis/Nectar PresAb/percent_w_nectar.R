@@ -94,6 +94,9 @@ summary(modbals)
   #interaction?
 Anova(modbals, type = 3)
 
+perc.nec <- emmeans::emmeans(modbals, c("treatment", "year"), type='response')
+emmeans::joint_tests(perc.nec)
+
 balsam$count <- as.numeric(balsam$necpres) - 1
 cellMean <- with(balsam, tapply(count, list(treatment, year), sum))
 cellMean
@@ -121,6 +124,9 @@ pairs(necpres.year)
   #buckwheat (only 2016)
 modbuck <- glmer(necpres ~ treatment + (1|plot) + (1|date), data = buckwt, family = binomial)
 summary(modbuck)
+
+buck.nec <- emmeans::emmeans(modbuck, c("treatment"), type='response')
+emmeans::joint_tests(buck.nec)
 
 Anova(modbuck)
 

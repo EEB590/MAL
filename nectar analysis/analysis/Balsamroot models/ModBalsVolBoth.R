@@ -27,6 +27,10 @@ cellMean
   #modeled ln of volume because using volume itself doesn't give us good residuals
 modlnvol <- lmer(lnvol ~ treatment * year + (1|plot/plant) + (1|year:date), data = balsvolboth)
 summary(modlnvol)
+
+bals.vol <- emmeans::emmeans(modlnvol, c("treatment", "year"), type='response')
+emmeans::joint_tests(bals.vol)
+
 plot(modlnvol)
 inflvol <- influence(modlnvol, obs = T)
 plot(inflvol, which = "cook", main = "Balsam Volume")

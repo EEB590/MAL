@@ -25,6 +25,10 @@ cellMean
 
 modlnmass <- lmer(lnmass ~ treatment * year + (1|plot/plant) + (1|year:date), data = balssugboth)
 summary(modlnmass)
+
+bals.mass <- emmeans::emmeans(modlnmass, c("treatment", "year"), type='response')
+emmeans::joint_tests(bals.mass)
+
 plot(modlnmass)
 inflmass <- influence(modlnmass, obs = T)
 plot(inflmass, which = "cook", main = "Balsam mass")

@@ -25,6 +25,10 @@ cellMean
 
 modlnvol <- lmer(lnvol ~ treatment * year + (1|plot) +(1|year:date), data = buckvolboth)
 summary(modlnvol)
+
+buck.vol <- emmeans::emmeans(modlnvol, c("treatment", "year"), type='response')
+emmeans::joint_tests(buck.vol)
+
 plot(modlnvol)
 inflvol <- influence(modlnvol, obs = T)
 plot(inflvol, which = "cook", main = "Buckwheat volume")
