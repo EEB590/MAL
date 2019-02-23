@@ -24,6 +24,10 @@ cellMean
 
 modBRIX <- lmer(BRIX ~ treatment * year +(1|plot/plant) + (1|year:date), data = balssugboth)
 summary(modBRIX)
+
+bals.brix <- emmeans::emmeans(modBRIX, c("treatment", "year"), type='response')
+emmeans::joint_tests(bals.brix)
+
 plot(modBRIX, main = "Balsam BRIX")
 inflBRIX <- influence(modBRIX, obs = T)
 plot(inflBRIX, which = "cook", main = "Balsam BRIX")
@@ -47,4 +51,3 @@ int.BRIXtable
 test(pairs(int.BRIXtable), joint = T)
 
 Anova(modBRIX, type = 3)
-

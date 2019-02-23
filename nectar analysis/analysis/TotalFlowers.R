@@ -70,6 +70,13 @@ abline(0,1)
 
 
 ### LSmeans
+total15 <- emmeans::emmeans(mod15, c("treatment"), type='response')
+emmeans::joint_tests(total15)
+
+total16 <- emmeans::emmeans(mod16, c("treatment"), type='response')
+emmeans::joint_tests(total16)
+
+
   #2015
 summary(mod15)
 lnvol.grid <- ref.grid(mod15)
