@@ -1,7 +1,7 @@
 library(lubridate)
 library(tidyr)
 
-#Munge 2015 for compatibility with 2016 data
+#Munge 2015 data
 bals15 <- read.csv("nectar analysis/data files/raw data/2015 Balsamroot Nectar Data raw.csv", header = T, as.is = T)
 
   # calculate volume
@@ -25,7 +25,7 @@ bals15$X..sucrose <- as.numeric(bals15$X..sucrose) #this coerces the >50 and <45
 bals15$BRIX <- rowMeans(bals15[,c("X..sucrose","X..of.second.tube","X..of.third.tube","X..of.fourth.tube")], na.rm = T)
 bals15 <- subset(bals15, select = -c(X..sucrose,X..of.second.tube,X..of.third.tube,X..of.fourth.tube))
 
-  # Get the plots properly labelled and formatted
+  # Get the plots properly labeled and formatted
 bals15 <- separate(bals15, plot, c("plotname", "plotno"), " ")
 bals15$plotno <- gsub("\\(", "", bals15$plotno)
 bals15$plotno <- gsub("\\)", "", bals15$plotno)
@@ -55,7 +55,7 @@ bals16$volume <- (bals16$mm.of.tube.filled/55)*bals16$size.tube..µL.  #all tube
 bals16$BRIX[which(bals16$volume == 0)] <- NA #set BRIX reading for 0 volume to NA
 bals16$BRIX <- as.numeric(bals16$BRIX) #this coerces the "no reading" into NAs
 
-  # Get the plots properly labelled
+  # Get the plots properly labeled
 bals16$treatment <- as.factor(gsub("[[:digit:]]", "", bals16$plot))
 bals16$treatment <- gsub("^C", "", bals16$treatment)
 bals16$treatment <- gsub("W", "", bals16$treatment)
@@ -87,5 +87,6 @@ balsam.df$shade_sun <- as.factor(balsam.df$shade_sun)
 #NOTE FOR ANALYSIS
   #keep volumes that equal zero (i.e., empty flowers)
   #BRIX NA for either no nectar or censored data (past detection limit)
+  #for multiple tubes, BRIX value is average over all the tubes
 
 write.csv(balsam.df, file = "nectar analysis/munging/balsamroot_df.Rdata", row.names = FALSE)
